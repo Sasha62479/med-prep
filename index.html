@@ -592,12 +592,19 @@ body {
       <div class="lesson-link" onclick="scrollTo('l1-4')">1.4 — Phase 1 quiz</div>
     </div>
 
-    <div class="nav-item locked">
-      <div class="phase-dot dot-locked">2</div>
+    <div class="nav-item" onclick="showPage('p2')" id="nav-p2">
+      <div class="phase-dot dot-active">2</div>
       <div>
-        <div>Fascia &amp; connective tissue</div>
-        <div style="font-size:0.72rem;">Unlock after Phase 1</div>
+        <div style="font-weight:500;">Fascia &amp; connective tissue</div>
+        <div style="font-size:0.72rem; color:var(--muted);">Connective tissue district</div>
       </div>
+    </div>
+    <div class="lesson-list" id="p2-lessons">
+      <div class="lesson-link" onclick="showPage('p2'); setTimeout(()=>scrollTo('l2-1'),80)">2.1 — Collagen: the triple helix</div>
+      <div class="lesson-link" onclick="showPage('p2'); setTimeout(()=>scrollTo('l2-2'),80)">2.2 — Hyaluronic acid</div>
+      <div class="lesson-link" onclick="showPage('p2'); setTimeout(()=>scrollTo('l2-3'),80)">2.3 — Fasciacytes &amp; fibroblasts</div>
+      <div class="lesson-link" onclick="showPage('p2'); setTimeout(()=>scrollTo('l2-4'),80)">2.4 — Mechanotransduction</div>
+      <div class="lesson-link" onclick="showPage('p2'); setTimeout(()=>scrollTo('l2-5'),80)">2.5 — Phase 2 quiz</div>
     </div>
     <div class="nav-item locked">
       <div class="phase-dot dot-locked">3</div>
@@ -912,6 +919,302 @@ body {
     </div><!-- end .content -->
   </div><!-- end #p1 -->
 
+  <!-- ═══════════════════════════════════════════════════════════
+       PHASE 2 PAGE
+  ═══════════════════════════════════════════════════════════════ -->
+  <div class="page" id="p2">
+
+    <div class="page-header">
+      <div class="eyebrow">Phase 2 · Connective Tissue District</div>
+      <h2>Fascia &amp; Connective Tissue</h2>
+      <p class="desc">Now that you know what atoms and bonds are, we can understand fascia at the molecular level — not just as a concept, but as actual molecules doing actual things. Collagen, hyaluronic acid, fibroblasts, and mechanotransduction: these aren't abstract. They're carbon chains with functional groups, doing chemistry you now understand.</p>
+      <div class="header-pills">
+        <span class="pill pill-teal">5 lessons</span>
+        <span class="pill pill-rust">1 quiz</span>
+        <span class="pill pill-gold">Builds directly on Phase 1</span>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ── LESSON 2.1 ─────────────────────────────────────────── -->
+      <div class="lesson" id="l2-1">
+        <div class="lesson-header">
+          <span class="lesson-num">Lesson 2.1</span>
+          <h3>Collagen — the triple helix</h3>
+        </div>
+        <p class="lesson-sub">The most abundant protein in your body, and why its structure is everything</p>
+
+        <p class="prose">Collagen is the most abundant protein in the human body — about 30% of your total protein mass. It forms the structural backbone of fascia, tendons, ligaments, skin, bone, and the walls of blood vessels. But before we understand collagen, we need to understand what a <strong>protein</strong> actually is — because this is where Phase 1 pays off immediately.</p>
+
+        <div class="insight">
+          <div class="insight-label">Phase 1 connection</div>
+          A protein is simply a long chain of amino acids — each with its <strong>–COOH</strong> on one end and <strong>–NH₂</strong> on the other — linked together by peptide bonds. The carboxyl group of one amino acid reacts with the amine group of the next, losing a water molecule (H₂O) each time. You already know what those functional groups are. A protein is just that reaction repeated hundreds or thousands of times.
+        </div>
+
+        <p class="prose">Collagen's amino acid chain has a very specific repeating pattern: <strong>Glycine–X–Y</strong>, where X is usually proline and Y is usually hydroxyproline. This specific sequence — repeated over and over — is what allows collagen to do something extraordinary: three chains twist around each other into a <strong>triple helix</strong>.</p>
+
+        <div class="city-callout">
+          <div class="city-label">City analogy</div>
+          A single strand of collagen is like a single cable wire — useful but not especially strong. Three wires twisted together into a cable are exponentially stronger. The triple helix is that twist. Three chains wrap around each other, held together by hydrogen bonds between the chains, creating a structure with enormous tensile strength — it can withstand pulling forces without snapping.
+        </div>
+
+        <!-- Collagen visual stepper -->
+        <div class="stepper-wrap" style="margin:24px 0">
+          <div class="stepper-header">
+            <div class="stepper-dots" id="col-dots"></div>
+            <div class="step-label" id="col-label"></div>
+          </div>
+          <div class="stepper-body">
+            <div class="step-content">
+              <div class="step-diagram">
+                <svg id="col-svg" width="190" height="160" viewBox="0 0 190 160" role="img"><title>Collagen structure diagram</title></svg>
+              </div>
+              <div class="step-prose">
+                <h4 id="col-title"></h4>
+                <div id="col-text"></div>
+              </div>
+            </div>
+          </div>
+          <div class="stepper-footer">
+            <div class="step-counter" id="col-counter"></div>
+            <div class="step-btns">
+              <button class="btn" onclick="colPrev()">← Back</button>
+              <button class="btn primary" onclick="colNext()" id="col-next">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="prose">The triple helix is then organized into larger structures: several triple helices bundle into a <strong>collagen fibril</strong>, and many fibrils bundle into a <strong>collagen fiber</strong>. It is this hierarchical structure — from amino acid → chain → triple helix → fibril → fiber — that gives fascia its mechanical properties.</p>
+
+        <div class="fg-grid" style="margin:20px 0">
+          <div class="fg-card" onclick="toggleFG2(this)" style="border-left: 4px solid var(--teal);">
+            <div class="fg-name" style="color:var(--teal)">Type I collagen</div>
+            <div class="fg-short">The most abundant. Found in skin, bone, tendons, fascia. High tensile strength.</div>
+            <div class="fg-detail">
+              <p>Type I collagen is what gives fascia its ability to resist stretching. The triple helices are packed tightly and cross-linked together — covalent bonds between individual chains that increase stiffness over time. In the fascia document, when you read about "fibrosis" — pathological collagen deposition — this is the collagen accumulating abnormally and creating stiffness that impairs gliding.</p>
+              <div class="found-tags"><span class="found-tag">fascia</span><span class="found-tag">tendons</span><span class="found-tag">bone</span><span class="found-tag">skin</span><span class="found-tag">most abundant type</span></div>
+            </div>
+          </div>
+          <div class="fg-card" onclick="toggleFG2(this)" style="border-left: 4px solid var(--rust);">
+            <div class="fg-name" style="color:var(--rust)">Type III collagen</div>
+            <div class="fg-short">Thinner, more flexible. First responder to injury. Often replaced by Type I.</div>
+            <div class="fg-detail">
+              <p>Type III collagen forms first after tissue injury — it's the "emergency scaffolding." Over time, remodeling replaces it with the stronger Type I. In chronic inflammation (like what happens in fascial dysfunction), this remodeling goes wrong — too much Type I accumulates, cross-links form excessively, and the tissue becomes pathologically stiff. This is the molecular basis of fascial fibrosis.</p>
+              <div class="found-tags"><span class="found-tag">wound healing</span><span class="found-tag">blood vessel walls</span><span class="found-tag">early scar tissue</span></div>
+            </div>
+          </div>
+          <div class="fg-card" onclick="toggleFG2(this)" style="border-left: 4px solid var(--gold);">
+            <div class="fg-name" style="color:var(--gold)">Type VI collagen</div>
+            <div class="fg-short">Connects fascial layers to each other. Critical for gliding.</div>
+            <div class="fg-detail">
+              <p>Type VI collagen forms a microfibrillar network that connects the main collagen fibers to each other and to the surrounding matrix. It acts like a bridge between structures, allowing independent movement of fascial layers. When fascial dysfunction occurs — through inflammation, immobility, or injury — Type VI collagen organization is disrupted, directly impairing the gliding that allows muscles to move freely.</p>
+              <div class="found-tags"><span class="found-tag">fascial gliding</span><span class="found-tag">muscle-fascia interface</span><span class="found-tag">ECM anchoring</span></div>
+            </div>
+          </div>
+          <div class="fg-card" onclick="toggleFG2(this)" style="border-left: 4px solid var(--purple);">
+            <div class="fg-name" style="color:var(--purple)">Cross-linking</div>
+            <div class="fg-short">Chemical bonds between helices that stiffen with age and inflammation.</div>
+            <div class="fg-detail">
+              <p>Cross-links are covalent bonds that form between adjacent collagen chains, making the tissue progressively stiffer. This is a normal aging process — but chronic inflammation dramatically accelerates it. TGF-β1 (which you read about extensively in the fascia document) is the primary driver of pathological cross-link formation. This is exactly why anti-fibrotic interventions target TGF-β1: they're trying to prevent runaway cross-linking.</p>
+              <div class="found-tags"><span class="found-tag">aging</span><span class="found-tag">fibrosis</span><span class="found-tag">TGF-β1 driven</span><span class="found-tag">fascial stiffness</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- ── LESSON 2.2 ─────────────────────────────────────────── -->
+      <div class="lesson" id="l2-2">
+        <div class="lesson-header">
+          <span class="lesson-num">Lesson 2.2</span>
+          <h3>Hyaluronic acid — the city's lubrication system</h3>
+        </div>
+        <p class="lesson-sub">Why the molecule you read about in the fascia document works exactly the way it does</p>
+
+        <p class="prose">In the fascia document, hyaluronic acid (HA) appeared constantly — it lubricates fascial layers, its viscosity increases with immobility, it activates nociceptors when densified, and it modulates TRPV1 channels on pain receptors. Now you can understand exactly <em>why</em>, at the molecular level.</p>
+
+        <div class="insight">
+          <div class="insight-label">Phase 1 connection — this is the payoff</div>
+          Remember the <strong>–OH (hydroxyl) group</strong> from Phase 1? Hyaluronic acid is essentially a long sugar chain covered in –OH groups. Each –OH group is polar and attracts water molecules. One molecule of HA can hold up to <strong>1,000 times its own weight in water</strong>. That water-holding capacity is what makes HA the body's premier lubricant — and why losing it causes fascial stiffness.
+        </div>
+
+        <p class="prose">Structurally, HA is a <strong>glycosaminoglycan (GAG)</strong> — a long, unbranched chain made of repeating disaccharide units. Each unit consists of two sugars: glucuronic acid and N-acetylglucosamine. Both sugars are loaded with –OH groups and one has a negatively charged carboxyl group (–COO⁻). That negative charge attracts positive ions from the surrounding fluid, which in turn attract more water. HA is essentially a molecular sponge.</p>
+
+        <div class="city-callout">
+          <div class="city-label">City analogy</div>
+          HA is the city's lubrication system — the oil in every joint, the grease on every sliding surface. When the lubrication system is working, elevator doors slide open smoothly, drawbridges raise without friction, road surfaces allow easy movement. When HA becomes viscous and disorganized (densification), it's like the oil turning into cold molasses. Everything that was supposed to slide starts to stick — and the friction activates pain sensors embedded in those surfaces.
+        </div>
+
+        <!-- HA interactive viscosity model -->
+        <div class="stepper-wrap" style="margin:24px 0">
+          <div class="stepper-header" style="padding-bottom:14px">
+            <div style="font-family:'DM Mono',monospace; font-size:0.68rem; color:var(--teal); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px">HA state explorer — drag to see what changes</div>
+            <div style="display:flex; align-items:center; gap:14px;">
+              <span style="font-size:0.8rem; color:var(--muted); min-width:80px">Normal HA</span>
+              <input type="range" id="ha-slider" min="0" max="100" value="15" style="flex:1" oninput="updateHA(this.value)">
+              <span style="font-size:0.8rem; color:var(--muted); min-width:80px; text-align:right">Densified HA</span>
+            </div>
+            <div id="ha-state-label" style="font-family:'DM Mono',monospace; font-size:0.72rem; color:var(--teal); margin-top:8px; text-align:center"></div>
+          </div>
+          <div class="stepper-body" style="padding:16px 24px">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start">
+              <div>
+                <svg id="ha-svg" width="100%" viewBox="0 0 200 160" role="img" style="display:block"><title>Hyaluronic acid state diagram</title></svg>
+              </div>
+              <div id="ha-text" style="font-size:0.84rem; color:var(--muted); line-height:1.75;"></div>
+            </div>
+          </div>
+        </div>
+
+        <p class="prose">The clinical implication flows directly from the chemistry. When HA is in its normal, low-viscosity state, fascial layers slide freely — the lubrication layer is thin and fluid. As HA becomes more concentrated (through immobility, inflammation, or aging), the chains begin to entangle, viscosity rises, and the lubricating film thickens into something more like gel. At high enough concentration, HA stops lubricating and starts impeding movement — and the mechanical tension that results activates the nociceptors embedded in the fascia.</p>
+
+        <p class="prose">This is the precise molecular mechanism behind the restless legs connection: <strong>evening immobility → HA densification in lower extremity fascia → nociceptor activation → urge to move → movement restores HA fluidity → temporary relief.</strong> You now understand that loop all the way down to the –OH group.</p>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- ── LESSON 2.3 ─────────────────────────────────────────── -->
+      <div class="lesson" id="l2-3">
+        <div class="lesson-header">
+          <span class="lesson-num">Lesson 2.3</span>
+          <h3>Fasciacytes &amp; fibroblasts — the construction crew</h3>
+        </div>
+        <p class="lesson-sub">The cells that build and maintain the extracellular matrix</p>
+
+        <p class="prose">The extracellular matrix (ECM) — the scaffolding that holds cells together and makes up most of fascia — doesn't build itself. It is continuously produced, maintained, and remodeled by specialized cells. The two most important for our framework are <strong>fibroblasts</strong> and the recently discovered <strong>fasciacytes</strong>.</p>
+
+        <div class="city-callout">
+          <div class="city-label">City analogy</div>
+          Fibroblasts are the construction workers of the connective tissue district. They build the steel framework (collagen), lay the pipes and wiring (other ECM proteins), and perform ongoing maintenance and repair. Fasciacytes are the specialized lubrication engineers — their specific job is managing the hyaluronic acid supply that keeps fascial layers sliding. Without them, the whole district seizes up.
+        </div>
+
+        <div class="fg-grid" style="margin:20px 0">
+          <div class="fg-card" onclick="toggleFG2(this)" style="border-left:4px solid var(--teal);">
+            <div class="fg-name" style="color:var(--teal)">Fibroblasts</div>
+            <div class="fg-short">The primary ECM builders. Produce collagen, fibronectin, and proteoglycans.</div>
+            <div class="fg-detail">
+              <p>Fibroblasts are the most abundant cells in connective tissue. Their primary job is to synthesize and secrete ECM components — collagen (Types I, III, VI), fibronectin, and proteoglycans. They are also the cells that respond to injury: when tissue is damaged, fibroblasts proliferate and increase ECM production to repair the breach. In chronic inflammation, this response becomes dysregulated — fibroblasts keep producing collagen even after repair is complete, leading to fibrosis.</p>
+              <p>Fibroblasts are also exquisitely <strong>mechanosensitive</strong> — they sense the physical stiffness of the ECM around them and adjust their behavior accordingly. Stiffer matrix → more collagen production → even stiffer matrix. This self-reinforcing cycle is a key driver of pathological fascial fibrosis.</p>
+              <div class="found-tags"><span class="found-tag">collagen synthesis</span><span class="found-tag">fibronectin</span><span class="found-tag">wound healing</span><span class="found-tag">fibrosis</span><span class="found-tag">mechanosensitive</span></div>
+            </div>
+          </div>
+
+          <div class="fg-card" onclick="toggleFG2(this)" style="border-left:4px solid var(--rust);">
+            <div class="fg-name" style="color:var(--rust)">Fasciacytes</div>
+            <div class="fg-short">Discovered 2018. Specialized cells that produce hyaluronic acid for fascial gliding.</div>
+            <div class="fg-detail">
+              <p>Fasciacytes were identified and named in 2018 by Stecco et al. (reference 14 in your document). They are found specifically at the interface between fascial layers — exactly where lubrication is most needed. Their specialized function is producing hyaluronic acid to maintain the lubricating film that allows fascial layers to slide past each other during movement.</p>
+              <p>When fasciacytes are disturbed by inflammation or chronic immobility, HA production becomes dysregulated — they produce HA that is abnormally concentrated or viscous. This is the cellular mechanism behind fascial densification: not just chemistry, but a specific cell type failing to maintain its lubricating function.</p>
+              <div class="found-tags"><span class="found-tag">HA production</span><span class="found-tag">fascial gliding</span><span class="found-tag">discovered 2018</span><span class="found-tag">layer interfaces</span></div>
+            </div>
+          </div>
+
+          <div class="fg-card" onclick="toggleFG2(this)" style="border-left:4px solid var(--gold);">
+            <div class="fg-name" style="color:var(--gold)">Myofibroblasts</div>
+            <div class="fg-short">Activated fibroblasts. Contract like muscle, drive fibrosis.</div>
+            <div class="fg-detail">
+              <p>When fibroblasts are activated by TGF-β1 (the cytokine you read about repeatedly in the document), they can differentiate into myofibroblasts — cells that share properties of both fibroblasts and smooth muscle cells. Myofibroblasts actively contract the ECM (contributing to scar contraction and tissue stiffening) and produce large amounts of collagen.</p>
+              <p>In the fascia document's context, myofibroblast activation is the molecular mechanism behind pathological fascial thickening and loss of gliding. They are driven by TGF-β1, which is released by — among other sources — mast cells in the fascia. This is the link between mast cell activation and fascial fibrosis that will make more sense once you reach Phase 3.</p>
+              <div class="found-tags"><span class="found-tag">TGF-β1 activated</span><span class="found-tag">ECM contraction</span><span class="found-tag">fibrosis driver</span><span class="found-tag">mast cell link</span></div>
+            </div>
+          </div>
+
+          <div class="fg-card" onclick="toggleFG2(this)" style="border-left:4px solid var(--purple);">
+            <div class="fg-name" style="color:var(--purple)">CD34+ cells</div>
+            <div class="fg-short">Newly discovered mechanosensitive hubs. Communicate with nerves, vessels, immune cells.</div>
+            <div class="fg-detail">
+              <p>Reference 31 in your document describes CD34+ membranous cells discovered in 2025 in subcutaneous fascia. These cells are equipped with gap junctions (direct connections to neighboring cells), focal adhesions (connections to the ECM), and extracellular vesicles (tiny packages they send to distant cells). This makes them communication hubs — able to sense mechanical forces and relay signals to nearby nerves, blood vessels, and immune cells simultaneously.</p>
+              <p>These cells represent the emerging view of fascia not as passive packaging but as an active sensory and communication network. They are likely part of the mechanism by which fascial manipulation (massage, dry needling, MFR) produces effects on the nervous system — mechanical stimulation of these cells triggers signaling cascades that reach far beyond the local tissue.</p>
+              <div class="found-tags"><span class="found-tag">mechanosensitive</span><span class="found-tag">gap junctions</span><span class="found-tag">extracellular vesicles</span><span class="found-tag">discovered 2025</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="insight">
+          <div class="insight-label">Key takeaway — the ECM is alive</div>
+          The extracellular matrix is not a static scaffold. It is a <strong>dynamically remodeled living system</strong>, continuously produced and broken down by these cell types. In health, production and degradation are balanced. In chronic fascial dysfunction — driven by immobility, inflammation, or hormonal changes — production outpaces degradation, HA becomes disorganized, and the matrix stiffens. Every intervention in the document (MFR, dry needling, exercise, hyaluronidase injections) works by shifting this balance back toward normal.
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- ── LESSON 2.4 ─────────────────────────────────────────── -->
+      <div class="lesson" id="l2-4">
+        <div class="lesson-header">
+          <span class="lesson-num">Lesson 2.4</span>
+          <h3>Mechanotransduction — how force becomes chemistry</h3>
+        </div>
+        <p class="lesson-sub">The mechanism that explains why movement heals and immobility harms</p>
+
+        <p class="prose">Mechanotransduction is the process by which cells convert <strong>mechanical forces into biochemical signals</strong>. It is one of the most important concepts in the entire framework — it explains why exercise is anti-inflammatory, why immobility causes HA densification, why massage reduces substance P, and why pneumatic compression devices help RLS.</p>
+
+        <p class="prose">The key molecular players are <strong>integrins</strong> — transmembrane proteins that span the cell membrane, with one end anchored in the ECM (outside the cell) and the other connected to the cell's internal skeleton (inside the cell). Think of integrins as biological strain gauges.</p>
+
+        <div class="city-callout">
+          <div class="city-label">City analogy</div>
+          Integrins are the city's seismic sensors — devices embedded in buildings that detect vibration and movement and trigger responses. When the ground moves (mechanical force), the sensor detects it (integrin deforms) and sends a signal to the building's control systems (biochemical cascade inside the cell). The control systems then decide: is this gentle movement (daily activity → maintain normal ECM production) or is this sustained force (exercise → increase collagen synthesis) or is this absence of movement (immobility → reduce HA production, trigger densification)?
+        </div>
+
+        <!-- Mechanotransduction stepper -->
+        <div class="stepper-wrap" style="margin:24px 0">
+          <div class="stepper-header">
+            <div class="stepper-dots" id="mech-dots"></div>
+            <div class="step-label" id="mech-label"></div>
+          </div>
+          <div class="stepper-body">
+            <div class="step-content">
+              <div class="step-diagram">
+                <svg id="mech-svg" width="190" height="160" viewBox="0 0 190 160" role="img"><title>Mechanotransduction diagram</title></svg>
+              </div>
+              <div class="step-prose">
+                <h4 id="mech-title"></h4>
+                <div id="mech-text"></div>
+              </div>
+            </div>
+          </div>
+          <div class="stepper-footer">
+            <div class="step-counter" id="mech-counter"></div>
+            <div class="step-btns">
+              <button class="btn" onclick="mechPrev()">← Back</button>
+              <button class="btn primary" onclick="mechNext()" id="mech-next">Next →</button>
+            </div>
+          </div>
+        </div>
+
+        <p class="prose">Understanding mechanotransduction makes the clinical evidence click into place. When you apply MFR or dry needling, you are mechanically deforming the ECM. That deformation is sensed by integrins on fibroblasts and fasciacytes, triggering biochemical cascades that reduce TGF-β1 signaling, normalize HA production, and suppress inflammatory cytokine release. The treatment is not mysterious — it is applied mechanotransduction.</p>
+
+        <div class="insight">
+          <div class="insight-label">Connecting to the RLS framework</div>
+          Evening immobility → no mechanical loading of fascial integrins → fibroblasts and fasciacytes receive "no movement" signal → HA production shifts toward higher molecular weight, more viscous forms → lubricating film thickens → nociceptors embedded in deep fascia are activated by mechanical tension → urge to move. Movement → integrins deformed → "loading" signal → HA organization normalized → nociceptor activation reduced → temporary relief. This is the molecular loop that connects immobility to RLS symptoms and movement to relief — traced from atom to cell to sensation.
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- ── LESSON 2.5 QUIZ ──────────────────────────────────────── -->
+      <div class="lesson" id="l2-5">
+        <div class="lesson-header">
+          <span class="lesson-num">Lesson 2.5</span>
+          <h3>Phase 2 checkpoint quiz</h3>
+        </div>
+        <p class="lesson-sub">Five questions — confirm your understanding of fascia at the molecular level</p>
+
+        <div class="quiz-wrap">
+          <div class="quiz-header">Phase 2 · Fascia &amp; connective tissue</div>
+          <div class="quiz-progress" id="q2-progress"></div>
+          <div id="q2-body"></div>
+          <div class="quiz-score" id="q2-score">
+            <span class="score-num" id="q2-score-num"></span>
+            <span class="score-msg" id="q2-score-msg"></span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end .content p2 -->
+  </div><!-- end #p2 -->
+
 </main>
 
 <script>
@@ -1158,15 +1461,339 @@ function answer(i) {
 function nextQ() { qIdx++; renderQuiz(); }
 renderQuiz();
 
-/* ─── Nav / routing ──────────────────────────────────────────────── */
-function showPage(id) {
+/* ─── toggleFG2 (shared expand for Phase 2 cards) ──────────────── */
+function toggleFG2(el) {
+  const wasOpen = el.classList.contains('open');
+  el.closest('.fg-grid').querySelectorAll('.fg-card').forEach(c => c.classList.remove('open'));
+  if (!wasOpen) el.classList.add('open');
+}
+
+/* ─── Collagen stepper ───────────────────────────────────────────── */
+const colSteps = [
+  {
+    label: 'Step 1 of 4 — <strong>Single amino acid</strong>',
+    title: 'The amino acid: glycine',
+    text: `<p>Every protein starts here. An amino acid has a central carbon, an <strong>amine group (–NH₂)</strong> on one side and a <strong>carboxyl group (–COOH)</strong> on the other — exactly what you learned in Phase 1. Glycine is the simplest: its side chain is just a hydrogen atom.</p><p>Glycine must appear at every third position in collagen (Gly–X–Y) because its tiny size is the only one that fits in the center of the triple helix.</p>`,
+    svg: `<circle cx="95" cy="80" r="20" fill="#c0dd97" stroke="#3b6d11" stroke-width="1"/>
+<text x="95" y="85" text-anchor="middle" font-size="12" font-weight="500" fill="#27500a" font-family="DM Sans,sans-serif">C</text>
+<rect x="20" y="65" width="44" height="30" rx="6" fill="#eeedfe" stroke="#7f77dd" stroke-width="0.5"/>
+<text x="42" y="83" text-anchor="middle" font-size="11" fill="#3c3489" font-family="DM Mono,monospace">–NH₂</text>
+<line x1="64" y1="80" x2="75" y2="80" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="126" y="65" width="50" height="30" rx="6" fill="#faece7" stroke="#d85a30" stroke-width="0.5"/>
+<text x="151" y="83" text-anchor="middle" font-size="11" fill="#712b13" font-family="DM Mono,monospace">–COOH</text>
+<line x1="115" y1="80" x2="126" y2="80" stroke="#6b7280" stroke-width="1.5"/>
+<text x="95" y="130" text-anchor="middle" font-size="11" fill="#9ca3af" font-family="DM Mono,monospace">one amino acid (glycine)</text>`
+  },
+  {
+    label: 'Step 2 of 4 — <strong>Peptide bond</strong>',
+    title: 'Linking amino acids: the peptide bond',
+    text: `<p>When two amino acids join, the <strong>–COOH</strong> of the first reacts with the <strong>–NH₂</strong> of the second. They lose a water molecule (H₂O) and form a peptide bond — written <strong>C(=O)–NH</strong>.</p><p>Repeat this hundreds of times and you have a polypeptide chain. Collagen chains are ~1,400 amino acids long.</p>`,
+    svg: `<rect x="5" y="55" width="52" height="30" rx="5" fill="#eaf3de" stroke="#97c459" stroke-width="0.5"/>
+<text x="31" y="73" text-anchor="middle" font-size="10" fill="#27500a" font-family="DM Sans,sans-serif">Gly</text>
+<rect x="70" y="55" width="52" height="30" rx="5" fill="#eaf3de" stroke="#97c459" stroke-width="0.5"/>
+<text x="96" y="73" text-anchor="middle" font-size="10" fill="#27500a" font-family="DM Sans,sans-serif">Pro</text>
+<rect x="135" y="55" width="52" height="30" rx="5" fill="#eaf3de" stroke="#97c459" stroke-width="0.5"/>
+<text x="161" y="73" text-anchor="middle" font-size="10" fill="#27500a" font-family="DM Sans,sans-serif">Hyp</text>
+<line x1="57" y1="70" x2="70" y2="70" stroke="#1d6b6e" stroke-width="2" stroke-linecap="round"/>
+<line x1="122" y1="70" x2="135" y2="70" stroke="#1d6b6e" stroke-width="2" stroke-linecap="round"/>
+<text x="63.5" y="92" text-anchor="middle" font-size="9" fill="#1d6b6e" font-family="DM Mono,monospace">peptide</text>
+<text x="128.5" y="92" text-anchor="middle" font-size="9" fill="#1d6b6e" font-family="DM Mono,monospace">peptide</text>
+<text x="95" y="130" text-anchor="middle" font-size="11" fill="#9ca3af" font-family="DM Mono,monospace">Gly–Pro–Hyp repeating unit</text>`
+  },
+  {
+    label: 'Step 3 of 4 — <strong>Triple helix</strong>',
+    title: 'Three chains twist into a triple helix',
+    text: `<p>Three collagen chains wind around each other in a right-handed triple helix. The chains are held together by <strong>hydrogen bonds</strong> between them — the same weak bonds (H to O or N) from Phase 1 that hold DNA together.</p><p>The result: a structure with extraordinary tensile strength. A single collagen fibril can withstand forces of ~1 GPa — comparable to steel per unit cross-section.</p>`,
+    svg: `<path d="M30,30 Q60,50 30,70 Q60,90 30,110 Q60,130 30,150" fill="none" stroke="#1d6b6e" stroke-width="3" stroke-linecap="round"/>
+<path d="M95,20 Q65,40 95,60 Q65,80 95,100 Q65,120 95,140" fill="none" stroke="#c0441f" stroke-width="3" stroke-linecap="round"/>
+<path d="M160,30 Q130,50 160,70 Q130,90 160,110 Q130,130 160,150" fill="none" stroke="#b8852a" stroke-width="3" stroke-linecap="round"/>
+<line x1="30" y1="50" x2="95" y2="40" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="3,2"/>
+<line x1="95" y1="60" x2="160" y2="50" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="3,2"/>
+<line x1="30" y1="90" x2="95" y2="80" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="3,2"/>
+<line x1="95" y1="100" x2="160" y2="90" stroke="#9ca3af" stroke-width="0.8" stroke-dasharray="3,2"/>
+<text x="95" y="155" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="DM Mono,monospace">3 chains, H-bonds between</text>`
+  },
+  {
+    label: 'Step 4 of 4 — <strong>Fibril → fiber hierarchy</strong>',
+    title: 'From helix to fiber: the full hierarchy',
+    text: `<p>Triple helices bundle into <strong>fibrils</strong> (~50–500 nm wide), stabilized by covalent cross-links between chains. Fibrils bundle into <strong>fibers</strong> (1–20 µm). Fibers bundle into fascicles, which make up tendons, fascia, and ligaments.</p><p>Each level of organization adds mechanical strength. Cross-linking at the fibril level is what TGF-β1 drives pathologically in fibrosis — too many covalent bonds → too stiff to glide.</p>`,
+    svg: `<rect x="80" y="10" width="30" height="10" rx="3" fill="#eaf3de" stroke="#97c459" stroke-width="0.5"/>
+<text x="95" y="19" text-anchor="middle" font-size="8" fill="#27500a" font-family="DM Sans,sans-serif">helix</text>
+<line x1="95" y1="20" x2="95" y2="35" stroke="#6b7280" stroke-width="1"/>
+<rect x="60" y="35" width="70" height="14" rx="4" fill="#c0dd97" stroke="#3b6d11" stroke-width="0.5"/>
+<text x="95" y="46" text-anchor="middle" font-size="9" fill="#27500a" font-family="DM Sans,sans-serif">fibril (cross-linked)</text>
+<line x1="95" y1="49" x2="95" y2="64" stroke="#6b7280" stroke-width="1"/>
+<rect x="40" y="64" width="110" height="16" rx="4" fill="#9fe1cb" stroke="#1d6b6e" stroke-width="0.5"/>
+<text x="95" y="76" text-anchor="middle" font-size="9" fill="#085041" font-family="DM Sans,sans-serif">fiber (many fibrils)</text>
+<line x1="95" y1="80" x2="95" y2="95" stroke="#6b7280" stroke-width="1"/>
+<rect x="20" y="95" width="150" height="16" rx="4" fill="#5dcaa5" stroke="#0f6e56" stroke-width="0.5"/>
+<text x="95" y="107" text-anchor="middle" font-size="9" fill="#04342c" font-family="DM Sans,sans-serif">fascicle / fascial sheet</text>
+<text x="95" y="150" text-anchor="middle" font-size="10" fill="#9ca3af" font-family="DM Mono,monospace">helix → fibril → fiber → fascia</text>`
+  }
+];
+let colIdx = 0;
+function renderCol() {
+  const s = colSteps[colIdx];
+  document.getElementById('col-label').innerHTML = s.label;
+  document.getElementById('col-title').textContent = s.title;
+  document.getElementById('col-text').innerHTML = s.text;
+  document.getElementById('col-svg').innerHTML = `<title>${s.title}</title>` + s.svg;
+  document.getElementById('col-counter').textContent = `Step ${colIdx+1} of ${colSteps.length}`;
+  document.getElementById('col-next').textContent = colIdx === colSteps.length-1 ? 'Done ✓' : 'Next →';
+  document.getElementById('col-dots').innerHTML = colSteps.map((_,i) =>
+    `<div class="sdot ${i===colIdx?'s-act':i<colIdx?'s-done':''}" onclick="goCol(${i})">${i+1}</div>`).join('');
+}
+function colNext() { if (colIdx < colSteps.length-1) { colIdx++; renderCol(); } else { document.getElementById('l2-2').scrollIntoView({behavior:'smooth'}); } }
+function colPrev() { if (colIdx > 0) { colIdx--; renderCol(); } }
+function goCol(i) { colIdx = i; renderCol(); }
+renderCol();
+
+/* ─── HA slider ──────────────────────────────────────────────────── */
+function updateHA(v) {
+  v = parseInt(v);
+  const states = [
+    { label: 'Normal HA — fluid, lubricating', color: '#1d9e75',
+      text: 'HA chains are in their normal, extended, low-viscosity state. The lubricating film between fascial layers is thin and fluid. Nociceptors are mechanically unloaded. Fascial layers slide freely. This is the state restored by movement, exercise, and manual therapy.',
+      svg: normalHA() },
+    { label: 'Mildly increased viscosity', color: '#b8852a',
+      text: 'HA chains are beginning to entangle. Viscosity is rising — the lubricating film is thickening. Mild fascial restriction begins. This state occurs after extended periods of rest (like an evening on the couch) and resolves quickly with movement.',
+      svg: mildHA() },
+    { label: 'Densified HA — viscous, activating nociceptors', color: '#c0441f',
+      text: 'HA is now in a pathologically densified state. Chains are heavily entangled and viscosity is high. The lubricating film has become a gel-like barrier that impedes sliding. Mechanical tension activates TRPV1 channels on embedded nociceptors. This is the molecular state producing the uncomfortable sensations of RLS at night.',
+      svg: denseHA() }
+  ];
+  const idx = v < 35 ? 0 : v < 70 ? 1 : 2;
+  const s = states[idx];
+  document.getElementById('ha-state-label').style.color = s.color;
+  document.getElementById('ha-state-label').textContent = s.label;
+  document.getElementById('ha-svg').innerHTML = s.svg;
+  document.getElementById('ha-text').innerHTML = `<p style="font-size:0.84rem;color:var(--muted);line-height:1.75">${s.text}</p>`;
+}
+function normalHA() {
+  let s = `<rect x="0" y="0" width="200" height="160" rx="8" fill="#e1f5ee"/>`;
+  for (let i = 0; i < 6; i++) {
+    const y = 30 + i * 20;
+    s += `<path d="M10,${y} Q40,${y-8} 70,${y} Q100,${y+8} 130,${y} Q160,${y-8} 190,${y}" fill="none" stroke="#1d9e75" stroke-width="1.5" opacity="0.7"/>`;
+    for (let j = 0; j < 5; j++) {
+      const x = 20 + j * 35;
+      s += `<circle cx="${x}" cy="${y + (j%2===0?-5:5)}" r="3" fill="#9fe1cb"/>`;
+    }
+  }
+  s += `<text x="100" y="152" text-anchor="middle" font-size="10" fill="#0f6e56" font-family="DM Mono,monospace">normal — extended chains, fluid film</text>`;
+  return s;
+}
+function mildHA() {
+  let s = `<rect x="0" y="0" width="200" height="160" rx="8" fill="#fdf6e7"/>`;
+  for (let i = 0; i < 5; i++) {
+    const y = 35 + i * 22;
+    s += `<path d="M10,${y} Q30,${y-14} 60,${y+6} Q90,${y-10} 120,${y+8} Q150,${y-6} 190,${y+4}" fill="none" stroke="#b8852a" stroke-width="2" opacity="0.8"/>`;
+  }
+  s += `<text x="100" y="152" text-anchor="middle" font-size="10" fill="#854f0b" font-family="DM Mono,monospace">mildly thickened — early restriction</text>`;
+  return s;
+}
+function denseHA() {
+  let s = `<rect x="0" y="0" width="200" height="160" rx="8" fill="#fdf0ec"/>`;
+  for (let i = 0; i < 8; i++) {
+    const y = 20 + i * 16;
+    const amp = 12 + Math.sin(i) * 6;
+    s += `<path d="M5,${y} Q25,${y-amp} 50,${y+amp} Q75,${y-amp} 100,${y+amp} Q125,${y-amp} 150,${y+amp} Q175,${y-amp} 195,${y}" fill="none" stroke="#c0441f" stroke-width="2" opacity="0.7"/>`;
+  }
+  s += `<path d="M40,60 L80,100 M80,50 L40,90 M120,60 L160,100 M160,55 L120,95" stroke="#c0441f" stroke-width="1" opacity="0.4"/>`;
+  s += `<text x="100" y="152" text-anchor="middle" font-size="10" fill="#993c1d" font-family="DM Mono,monospace">densified — entangled, nociceptors fire</text>`;
+  return s;
+}
+updateHA(15);
+
+/* ─── Mechanotransduction stepper ───────────────────────────────── */
+const mechSteps = [
+  {
+    label: 'Step 1 of 4 — <strong>The integrin</strong>',
+    title: 'Integrins — transmembrane strain gauges',
+    text: `<p>Integrins are proteins that span the cell membrane. On the <strong>outside</strong>, they anchor to ECM proteins (collagen, fibronectin). On the <strong>inside</strong>, they connect to the cell's actin cytoskeleton.</p><p>They form a physical bridge between the external mechanical environment and the cell's interior — able to transmit forces in both directions.</p>`,
+    svg: `<rect x="20" y="10" width="150" height="35" rx="5" fill="#eaf3de" stroke="#97c459" stroke-width="0.5"/>
+<text x="95" y="31" text-anchor="middle" font-size="10" fill="#27500a" font-family="DM Sans,sans-serif">ECM (collagen / fibronectin)</text>
+<rect x="55" y="55" width="24" height="60" rx="5" fill="#1d6b6e" opacity="0.8"/>
+<rect x="111" y="55" width="24" height="60" rx="5" fill="#1d6b6e" opacity="0.8"/>
+<text x="95" y="89" text-anchor="middle" font-size="9" fill="#fff" font-family="DM Sans,sans-serif">integrin</text>
+<rect x="20" y="125" width="150" height="25" rx="5" fill="#eeedfe" stroke="#afa9ec" stroke-width="0.5"/>
+<text x="95" y="141" text-anchor="middle" font-size="10" fill="#3c3489" font-family="DM Sans,sans-serif">cell interior (actin cytoskeleton)</text>
+<text x="95" y="155" text-anchor="middle" font-size="9" fill="#9ca3af" font-family="DM Mono,monospace">spans the membrane</text>`
+  },
+  {
+    label: 'Step 2 of 4 — <strong>Force applied</strong>',
+    title: 'Mechanical force deforms the integrin',
+    text: `<p>When mechanical force is applied — movement, massage, exercise, compression — the ECM deforms. This deformation is transmitted through the integrin, <strong>changing its shape</strong>.</p><p>This shape change is the key event. It exposes binding sites on the integrin's cytoplasmic tail that were previously hidden, allowing signaling proteins to dock.</p>`,
+    svg: `<rect x="20" y="10" width="150" height="35" rx="5" fill="#eaf3de" stroke="#97c459" stroke-width="0.5"/>
+<text x="95" y="31" text-anchor="middle" font-size="10" fill="#27500a" font-family="DM Sans,sans-serif">ECM — deformed by force</text>
+<path d="M67,45 L55,115" stroke="#1d6b6e" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+<path d="M123,45 L135,115" stroke="#1d6b6e" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+<text x="95" y="85" text-anchor="middle" font-size="9" fill="#1d6b6e" font-family="DM Sans,sans-serif">bent!</text>
+<path d="M40,30 L25,20" stroke="#c0441f" stroke-width="2" marker-end="url(#arr2)" fill="none"/>
+<path d="M150,30 L165,20" stroke="#c0441f" stroke-width="2" fill="none"/>
+<text x="10" y="18" font-size="9" fill="#c0441f" font-family="DM Sans,sans-serif">force</text>
+<text x="158" y="18" font-size="9" fill="#c0441f" font-family="DM Sans,sans-serif">force</text>
+<rect x="20" y="125" width="150" height="25" rx="5" fill="#eeedfe" stroke="#afa9ec" stroke-width="0.5"/>
+<text x="95" y="141" text-anchor="middle" font-size="10" fill="#3c3489" font-family="DM Sans,sans-serif">binding sites now exposed</text>`
+  },
+  {
+    label: 'Step 3 of 4 — <strong>Signaling cascade</strong>',
+    title: 'The biochemical cascade begins',
+    text: `<p>Signaling proteins dock onto the exposed integrin tail and trigger a cascade — a chain of molecular events where each protein activates the next. Key players include focal adhesion kinase (FAK) and downstream pathways that reach the cell nucleus.</p><p>The nucleus receives the signal and adjusts <strong>gene expression</strong>: which proteins to make more of, which to reduce. This is how a mechanical force becomes a change in cell behavior.</p>`,
+    svg: `<rect x="60" y="10" width="70" height="24" rx="5" fill="#e1f5ee" stroke="#5dcaa5" stroke-width="0.5"/>
+<text x="95" y="26" text-anchor="middle" font-size="9" fill="#085041" font-family="DM Sans,sans-serif">integrin (bent)</text>
+<line x1="95" y1="34" x2="95" y2="50" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="55" y="50" width="80" height="22" rx="5" fill="#c0dd97" stroke="#3b6d11" stroke-width="0.5"/>
+<text x="95" y="65" text-anchor="middle" font-size="9" fill="#27500a" font-family="DM Sans,sans-serif">FAK activation</text>
+<line x1="95" y1="72" x2="95" y2="88" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="45" y="88" width="100" height="22" rx="5" fill="#faeeda" stroke="#fac775" stroke-width="0.5"/>
+<text x="95" y="103" text-anchor="middle" font-size="9" fill="#412402" font-family="DM Sans,sans-serif">MAPK / PI3K cascade</text>
+<line x1="95" y1="110" x2="95" y2="126" stroke="#6b7280" stroke-width="1.5"/>
+<rect x="35" y="126" width="120" height="22" rx="5" fill="#eeedfe" stroke="#afa9ec" stroke-width="0.5"/>
+<text x="95" y="141" text-anchor="middle" font-size="9" fill="#3c3489" font-family="DM Sans,sans-serif">nucleus: gene expression changes</text>
+<text x="95" y="158" text-anchor="middle" font-size="9" fill="#9ca3af" font-family="DM Mono,monospace">force → chemistry → behavior</text>`
+  },
+  {
+    label: 'Step 4 of 4 — <strong>Three outcomes</strong>',
+    title: 'What the cell does with the signal',
+    text: `<p>The cell's response depends on the <strong>type, magnitude, and duration</strong> of force. Three outcomes are most relevant to the framework:</p><p><strong>Normal movement</strong> → balanced ECM production and degradation → healthy fascial gliding.</p><p><strong>Sustained exercise loading</strong> → increased collagen synthesis, anti-inflammatory cytokines, normalized HA.</p><p><strong>Immobility (no signal)</strong> → HA densification, increased TGF-β1, mast cell activation → the path to RLS and fascial dysfunction.</p>`,
+    svg: `<rect x="55" y="5" width="80" height="22" rx="5" fill="#e1f5ee" stroke="#5dcaa5" stroke-width="0.5"/>
+<text x="95" y="20" text-anchor="middle" font-size="9" fill="#085041" font-family="DM Sans,sans-serif">mechanical signal</text>
+<line x1="55" y1="27" x2="25" y2="55" stroke="#6b7280" stroke-width="1"/>
+<line x1="95" y1="27" x2="95" y2="55" stroke="#6b7280" stroke-width="1"/>
+<line x1="135" y1="27" x2="165" y2="55" stroke="#6b7280" stroke-width="1"/>
+<rect x="5" y="55" width="60" height="36" rx="5" fill="#eaf3de" stroke="#97c459" stroke-width="0.5"/>
+<text x="35" y="68" text-anchor="middle" font-size="8" fill="#27500a" font-family="DM Sans,sans-serif">movement</text>
+<text x="35" y="80" text-anchor="middle" font-size="7" fill="#3b6d11" font-family="DM Sans,sans-serif">healthy ECM</text>
+<rect x="65" y="55" width="60" height="36" rx="5" fill="#e1f5ee" stroke="#5dcaa5" stroke-width="0.5"/>
+<text x="95" y="68" text-anchor="middle" font-size="8" fill="#085041" font-family="DM Sans,sans-serif">exercise</text>
+<text x="95" y="80" text-anchor="middle" font-size="7" fill="#0f6e56" font-family="DM Sans,sans-serif">↑ collagen, ↓ inflam</text>
+<rect x="130" y="55" width="57" height="36" rx="5" fill="#fdf0ec" stroke="#f0997b" stroke-width="0.5"/>
+<text x="158" y="68" text-anchor="middle" font-size="8" fill="#712b13" font-family="DM Sans,sans-serif">immobility</text>
+<text x="158" y="80" text-anchor="middle" font-size="7" fill="#993c1d" font-family="DM Sans,sans-serif">HA dens., TGF-β1↑</text>
+<text x="95" y="150" text-anchor="middle" font-size="9" fill="#9ca3af" font-family="DM Mono,monospace">same sensor, different response</text>`
+  }
+];
+let mechIdx = 0;
+function renderMech() {
+  const s = mechSteps[mechIdx];
+  document.getElementById('mech-label').innerHTML = s.label;
+  document.getElementById('mech-title').textContent = s.title;
+  document.getElementById('mech-text').innerHTML = s.text;
+  document.getElementById('mech-svg').innerHTML = `<title>${s.title}</title>` + s.svg;
+  document.getElementById('mech-counter').textContent = `Step ${mechIdx+1} of ${mechSteps.length}`;
+  document.getElementById('mech-next').textContent = mechIdx === mechSteps.length-1 ? 'Done ✓' : 'Next →';
+  document.getElementById('mech-dots').innerHTML = mechSteps.map((_,i) =>
+    `<div class="sdot ${i===mechIdx?'s-act':i<mechIdx?'s-done':''}" onclick="goMech(${i})">${i+1}</div>`).join('');
+}
+function mechNext() { if (mechIdx < mechSteps.length-1) { mechIdx++; renderMech(); } else { document.getElementById('l2-5').scrollIntoView({behavior:'smooth'}); } }
+function mechPrev() { if (mechIdx > 0) { mechIdx--; renderMech(); } }
+function goMech(i) { mechIdx = i; renderMech(); }
+renderMech();
+
+/* ─── Phase 2 Quiz ────────────────────────────────────────────────── */
+const q2questions = [
+  {
+    q: 'Collagen\'s triple helix structure is held together primarily by what type of bond between the three chains?',
+    opts: ['Covalent bonds (very strong, permanent)', 'Hydrogen bonds (weak individually, but millions of them)', 'Ionic bonds (between charged atoms)', 'Peptide bonds (the same bonds linking amino acids)'],
+    correct: 1,
+    feedback: 'Correct! Hydrogen bonds hold the three collagen chains together in the triple helix — the same weak H-to-O attractions that hold DNA\'s double helix together. Their strength comes from number, not individual strength. This is why collagen can be disrupted by excess heat (denaturation breaks hydrogen bonds) and why TGF-β1-driven cross-linking changes its mechanical properties so dramatically.'
+  },
+  {
+    q: 'A patient with chronic low back pain has elevated TGF-β1 in their fascial tissue. Based on Phase 2, what is TGF-β1 driving at the cellular level?',
+    opts: [
+      'Fasciacytes to produce more hyaluronic acid, improving lubrication',
+      'Fibroblasts to differentiate into myofibroblasts, increasing collagen production and cross-linking',
+      'Integrins to increase sensitivity to mechanical loading',
+      'CD34+ cells to produce more extracellular vesicles'
+    ],
+    correct: 1,
+    feedback: 'Exactly right. TGF-β1 is the primary driver of fibroblast → myofibroblast transition. Myofibroblasts produce excess collagen, increase cross-linking, and actively contract the ECM. This is the cellular basis of fascial fibrosis — and why anti-fibrotic interventions target TGF-β1 specifically. In Phase 3, you\'ll learn where TGF-β1 comes from: primarily mast cells in the fascia.'
+  },
+  {
+    q: 'Hyaluronic acid holds water because of its molecular structure. Which feature from Phase 1 explains this?',
+    opts: [
+      'Its carbon backbone, which is large and takes up space',
+      'Its nitrogen-containing amine groups, which carry charge',
+      'Its abundant –OH (hydroxyl) groups, which are polar and attract water molecules',
+      'Its double bonds, which create rigidity and trap water mechanically'
+    ],
+    correct: 2,
+    feedback: 'Perfect — this is the Phase 1 payoff. HA is covered in –OH groups, each of which is polar and attracts surrounding water molecules. One HA molecule can hold up to 1,000× its weight in water because of this. When HA becomes densified (chains entangle, viscosity rises), this organized water-holding breaks down — and the resulting mechanical tension activates embedded nociceptors. You traced RLS symptoms all the way to the hydroxyl group.'
+  },
+  {
+    q: 'A patient gets myofascial release therapy. At the molecular level, what is happening in their fascial tissue during treatment?',
+    opts: [
+      'Collagen triple helices are permanently broken and reformed',
+      'ECM deformation is sensed by integrins, triggering signaling cascades that normalize HA production and reduce inflammatory cytokine expression',
+      'Fasciacytes are mechanically destroyed and replaced',
+      'Peptide bonds between amino acids are temporarily broken'
+    ],
+    correct: 1,
+    feedback: 'This is mechanotransduction in action. The physical force of MFR deforms the ECM → integrins sense the deformation → FAK and downstream cascades are activated → gene expression shifts → cells reduce TGF-β1 signaling and normalize HA production. This is why manual therapy has measurable effects on inflammatory biomarkers (like the 2025 RCT showing reduced TNF-α after 3D MFR). The treatment is applied mechanotransduction.'
+  },
+  {
+    q: 'Evening immobility worsens RLS symptoms. Tracing this from the molecular level up: what is the sequence?',
+    opts: [
+      'Immobility → dopamine falls → RLS symptoms → movement restores dopamine',
+      'Immobility → no integrin loading → HA densifies → nociceptors activate → urge to move → movement restores HA fluidity',
+      'Immobility → collagen cross-linking increases → nerves are compressed → pain signals',
+      'Immobility → fasciacytes die → HA production stops → permanent stiffness'
+    ],
+    correct: 1,
+    feedback: 'That\'s the complete molecular chain — and you just traced it from atom (–OH groups on HA) to cell (fasciacytes, integrins) to tissue (fascial gliding) to sensation (nociceptor activation) to behavior (urge to move). This is the fascial contribution to RLS pathophysiology that the document proposes and that remains underappreciated in the literature. Phase 3 will add mast cells to this picture, making it even richer.'
+  }
+];
+let q2Idx = 0, q2Score = 0, q2Answered = [];
+function renderQ2() {
+  const prog = document.getElementById('q2-progress');
+  prog.innerHTML = q2questions.map((_,i) =>
+    `<div class="qp-dot ${i<q2Answered.length?'done':i===q2Idx?'current':''}"></div>`).join('');
+  if (q2Idx >= q2questions.length) {
+    document.getElementById('q2-body').style.display = 'none';
+    const sc = document.getElementById('q2-score');
+    sc.style.display = 'block';
+    document.getElementById('q2-score-num').textContent = q2Score + '/' + q2questions.length;
+    const msgs = ['Review the lessons above and try again!','Good start — revisit what tripped you up.','Solid! A couple to review.','Great work — Phase 3 is waiting!','Perfect score! You\'re ready for immunology.'];
+    document.getElementById('q2-score-msg').textContent = msgs[q2Score] || msgs[4];
+    return;
+  }
+  const q = q2questions[q2Idx];
+  document.getElementById('q2-body').innerHTML = `
+    <div class="quiz-q">${q2Idx+1}. ${q.q}</div>
+    <div class="quiz-options">${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQ2(${i})">${o}</button>`).join('')}</div>
+    <div class="quiz-feedback" id="q2fb"></div>`;
+}
+function answerQ2(i) {
+  const q = q2questions[q2Idx];
+  document.querySelectorAll('#q2-body .quiz-opt').forEach((o,idx)=>{
+    o.disabled = true;
+    if (idx===q.correct) o.classList.add('correct');
+    else if (idx===i&&i!==q.correct) o.classList.add('wrong');
+    else o.classList.add('dimmed');
+  });
+  const isRight = i===q.correct;
+  if (isRight) q2Score++;
+  q2Answered.push(i);
+  const fb = document.getElementById('q2fb');
+  fb.className = 'quiz-feedback show '+(isRight?'ok':'no');
+  fb.innerHTML = (isRight?'✓ ':'✗ ')+q.feedback+`<br><br><button class="btn" style="margin-top:8px" onclick="nextQ2()">${q2Idx<q2questions.length-1?'Next question →':'See results'}</button>`;
+  renderQ2();
+}
+function nextQ2() { q2Idx++; renderQ2(); }
+renderQ2();
+
+/* ─── Nav update for Phase 2 ─────────────────────────────────────── */
+const _origShowPage = showPage;
+showPage = function(id) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-}
-function scrollTo(id) {
-  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
+  document.querySelectorAll('.nav-item:not(.locked)').forEach(n => n.classList.remove('active'));
+  const navMap = { p1: 'nav-p1-implicit', p2: 'nav-p2' };
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.getAttribute('onclick') && n.getAttribute('onclick').includes(id)) n.classList.add('active');
+  });
+  window.scrollTo(0,0);
+};
 </script>
 
 </body>
