@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Connective Tissue–Brain Axis · Biochemistry Course</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & base ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg:        #f8f7f4;
+  --surface:   #ffffff;
+  --border:    #e4e0d9;
+  --border2:   #d0ccc4;
+  --text:      #1a1a2e;
+  --muted:     #6b7280;
+  --faint:     #9ca3af;
+  --teal:      #1d6b6e;
+  --teal-l:    #e1f5ee;
+  --teal-m:    #5dcaa5;
+  --rust:      #c0441f;
+  --rust-l:    #fdf0ec;
+  --gold:      #b8852a;
+  --gold-l:    #fdf6e7;
+  --sage:      #5a7a5c;
+  --sage-l:    #eef4ee;
+  --purple:    #6b5c8a;
+  --purple-l:  #f0edf8;
+  --sidebar-w: 260px;
+}
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ── Sidebar ──────────────────────────────────────────────────── */
+#sidebar {
+  width: var(--sidebar-w);
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-brand {
+  padding: 24px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-brand .eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--teal);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.sidebar-brand h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.05rem;
+  line-height: 1.3;
+  color: var(--text);
+}
+.sidebar-brand .tagline {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+.nav-section { padding: 16px 0 8px; }
+.nav-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  color: var(--faint);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0 20px 8px;
+}
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.82rem;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+  transition: all 0.15s;
+}
+.nav-item:hover { background: var(--bg); color: var(--text); }
+.nav-item.active { color: var(--teal); border-left-color: var(--teal); background: var(--teal-l); font-weight: 500; }
+.nav-item.locked { opacity: 0.45; cursor: default; }
+.nav-item.locked:hover { background: none; color: var(--muted); }
+.phase-dot {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 500;
+  flex-shrink: 0;
+}
+.dot-active  { background: var(--teal-l); color: var(--teal); border: 1.5px solid var(--teal-m); }
+.dot-locked  { background: var(--border); color: var(--faint); border: 1px solid var(--border2); }
+.dot-done    { background: var(--teal); color: #fff; }
+
+.lesson-list { padding: 0 0 6px; }
+.lesson-link {
+  display: block;
+  padding: 6px 20px 6px 42px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.12s;
+}
+.lesson-link:hover { color: var(--teal); }
+.lesson-link.active { color: var(--teal); font-weight: 500; }
+
+/* ── Main content ─────────────────────────────────────────────── */
+#main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-height: 100vh;
+}
+
+/* ── Page header ──────────────────────────────────────────────── */
+.page-header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 40px 48px 32px;
+}
+.page-header .eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--teal);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.page-header h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.2rem;
+  line-height: 1.2;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.page-header .desc {
+  font-size: 0.92rem;
+  color: var(--muted);
+  max-width: 620px;
+  line-height: 1.7;
+}
+.header-pills {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 500;
+}
+.pill-teal   { background: var(--teal-l); color: var(--teal); border: 1px solid var(--teal-m); }
+.pill-rust   { background: var(--rust-l); color: var(--rust); border: 1px solid #f0997b; }
+.pill-gold   { background: var(--gold-l); color: var(--gold); border: 1px solid #ef9f27; }
+
+/* ── Content area ─────────────────────────────────────────────── */
+.content { padding: 40px 48px 80px; max-width: 860px; }
+
+/* ── Lesson section ───────────────────────────────────────────── */
+.lesson {
+  margin-bottom: 56px;
+}
+.lesson-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.lesson-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--teal);
+  background: var(--teal-l);
+  padding: 3px 9px;
+  border-radius: 20px;
+  border: 1px solid var(--teal-m);
+  flex-shrink: 0;
+}
+.lesson h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.4rem;
+  color: var(--text);
+}
+.lesson .lesson-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+  padding-left: 2px;
+}
+
+/* ── Prose ────────────────────────────────────────────────────── */
+.prose {
+  font-size: 0.91rem;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 20px;
+}
+.prose strong { font-weight: 600; color: var(--teal); }
+.prose em { font-style: italic; color: var(--muted); }
+
+/* ── City callout ─────────────────────────────────────────────── */
+.city-callout {
+  border-left: 3px solid var(--gold);
+  background: var(--gold-l);
+  border-radius: 0 10px 10px 0;
+  padding: 14px 18px;
+  margin: 20px 0;
+  font-size: 0.86rem;
+  color: var(--text);
+  line-height: 1.7;
+}
+.city-callout .city-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+/* ── Key insight box ──────────────────────────────────────────── */
+.insight {
+  border: 1px solid var(--teal-m);
+  background: var(--teal-l);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  font-size: 0.88rem;
+  line-height: 1.75;
+  color: var(--text);
+}
+.insight .insight-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--teal);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+/* ── Divider ──────────────────────────────────────────────────── */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 48px 0;
+}
+
+/* ── Atom cards ───────────────────────────────────────────────── */
+.atom-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 24px 0;
+}
+.atom-card {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, transform 0.1s;
+  background: var(--surface);
+}
+.atom-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+.atom-card.selected { border-width: 2px; }
+.atom-circle {
+  width: 58px; height: 58px;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; font-weight: 500;
+}
+.atom-symbol { font-size: 0.82rem; font-weight: 600; margin-bottom: 2px; }
+.atom-name { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--muted); margin-bottom: 10px; }
+.valence { display: flex; gap: 4px; justify-content: center; margin-bottom: 10px; }
+.bond-dot { width: 9px; height: 9px; border-radius: 50%; }
+.atom-city { font-size: 0.73rem; color: var(--muted); border-top: 1px solid var(--border); padding-top: 9px; line-height: 1.45; }
+
+.c-atom .atom-circle { background: #c0dd97; color: #27500a; }
+.c-atom .atom-symbol { color: #3b6d11; }
+.c-atom .bond-dot    { background: #639922; }
+.c-atom.selected     { border-color: #639922; background: #eaf3de; }
+
+.h-atom .atom-circle { background: #b5d4f4; color: #0c447c; }
+.h-atom .atom-symbol { color: #185fa5; }
+.h-atom .bond-dot    { background: #378add; }
+.h-atom.selected     { border-color: #378add; background: #e6f1fb; }
+
+.o-atom .atom-circle { background: #f5c4b3; color: #712b13; }
+.o-atom .atom-symbol { color: #993c1d; }
+.o-atom .bond-dot    { background: #d85a30; }
+.o-atom.selected     { border-color: #d85a30; background: #faece7; }
+
+.n-atom .atom-circle { background: #cecbf6; color: #3c3489; }
+.n-atom .atom-symbol { color: #534ab7; }
+.n-atom .bond-dot    { background: #7f77dd; }
+.n-atom.selected     { border-color: #7f77dd; background: #eeedfe; }
+
+.atom-detail {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  margin-top: 8px;
+  background: var(--surface);
+  display: none;
+  animation: fadeIn 0.2s ease;
+}
+.atom-detail.visible { display: block; }
+.atom-detail h4 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; margin-bottom: 10px; }
+.atom-detail p  { font-size: 0.87rem; line-height: 1.78; color: var(--muted); margin-bottom: 10px; }
+.atom-detail p:last-of-type { margin-bottom: 12px; }
+.found-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.found-tag  { font-family: 'DM Mono', monospace; font-size: 0.65rem; padding: 3px 9px; border-radius: 20px; background: var(--bg); border: 1px solid var(--border2); color: var(--muted); }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+
+/* ── Stepper ──────────────────────────────────────────────────── */
+.stepper-wrap {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  overflow: hidden;
+  margin: 24px 0;
+}
+.stepper-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.stepper-dots {
+  display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap;
+}
+.sdot {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  border: 1.5px solid var(--border2);
+  background: var(--surface);
+  font-size: 0.72rem; font-weight: 500;
+  color: var(--muted);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+}
+.sdot:hover  { border-color: var(--teal); color: var(--teal); }
+.sdot.s-done { background: var(--teal-l); border-color: var(--teal-m); color: var(--teal); }
+.sdot.s-act  { background: var(--teal); border-color: var(--teal); color: #fff; }
+.step-label  { font-size: 0.78rem; color: var(--muted); }
+.step-label strong { color: var(--text); }
+
+.stepper-body { padding: 24px; }
+.step-content { display: flex; gap: 24px; align-items: flex-start; }
+.step-diagram { flex-shrink: 0; }
+.step-prose   { flex: 1; }
+.step-prose h4 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; margin-bottom: 6px; }
+.step-prose p  { font-size: 0.87rem; line-height: 1.8; color: var(--muted); margin-bottom: 10px; }
+.step-prose p strong { color: var(--text); font-weight: 600; }
+.step-city {
+  border-left: 3px solid var(--gold);
+  background: var(--gold-l);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  font-size: 0.78rem;
+  color: var(--text);
+  margin-top: 12px;
+  line-height: 1.6;
+}
+.step-city .cl { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 3px; }
+
+.stepper-footer {
+  padding: 14px 24px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.step-counter { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+.step-btns { display: flex; gap: 8px; }
+.btn {
+  padding: 8px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--border2);
+  background: var(--surface);
+  font-size: 0.82rem;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  color: var(--text);
+  transition: all 0.12s;
+}
+.btn:hover    { background: var(--bg); border-color: var(--teal); color: var(--teal); }
+.btn.primary  { background: var(--teal); border-color: var(--teal); color: #fff; }
+.btn.primary:hover { background: #155052; }
+
+/* ── Functional groups ────────────────────────────────────────── */
+.fg-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 24px 0;
+}
+.fg-card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px;
+  background: var(--surface);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.fg-card:hover { border-color: var(--border2); }
+.fg-card.open  { border-color: var(--teal-m); }
+.fg-formula {
+  font-family: 'DM Mono', monospace;
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+.fg-name   { font-size: 0.82rem; font-weight: 600; margin-bottom: 4px; }
+.fg-short  { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+.fg-detail { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); display: none; }
+.fg-card.open .fg-detail { display: block; }
+.fg-detail p { font-size: 0.83rem; color: var(--muted); line-height: 1.75; margin-bottom: 8px; }
+.fg-detail .found-tags { margin-top: 8px; }
+
+.fg-oh .fg-formula { color: #3b6d11; }
+.fg-oh.open        { background: #eaf3de; }
+.fg-cooh .fg-formula { color: #993c1d; }
+.fg-cooh.open        { background: #faece7; }
+.fg-nh2 .fg-formula { color: #534ab7; }
+.fg-nh2.open        { background: #eeedfe; }
+.fg-co .fg-formula  { color: #185fa5; }
+.fg-co.open         { background: #e6f1fb; }
+
+/* ── Quiz ─────────────────────────────────────────────────────── */
+.quiz-wrap {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  padding: 28px;
+  margin: 32px 0;
+}
+.quiz-header {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--rust);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  margin-bottom: 16px;
+}
+.quiz-q {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.6;
+}
+.quiz-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+.quiz-opt {
+  padding: 11px 16px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.13s;
+  color: var(--text);
+  background: var(--bg);
+  text-align: left;
+}
+.quiz-opt:hover { border-color: var(--teal); background: var(--teal-l); }
+.quiz-opt.correct { background: #eaf3de; border-color: #639922; color: #27500a; }
+.quiz-opt.wrong   { background: #faece7; border-color: #d85a30; color: #712b13; }
+.quiz-opt.dimmed  { opacity: 0.45; pointer-events: none; }
+.quiz-feedback {
+  font-size: 0.85rem;
+  line-height: 1.7;
+  padding: 12px 16px;
+  border-radius: 8px;
+  display: none;
+}
+.quiz-feedback.show { display: block; }
+.quiz-feedback.ok  { background: #eaf3de; color: #27500a; border: 1px solid #97c459; }
+.quiz-feedback.no  { background: #faece7; color: #712b13; border: 1px solid #f0997b; }
+.quiz-progress { display: flex; gap: 6px; margin-bottom: 20px; }
+.qp-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); }
+.qp-dot.done    { background: var(--teal); }
+.qp-dot.current { background: var(--teal-m); }
+.quiz-score {
+  text-align: center;
+  padding: 20px;
+  font-size: 0.92rem;
+  color: var(--text);
+  display: none;
+}
+.quiz-score .score-num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.4rem;
+  color: var(--teal);
+  display: block;
+  margin-bottom: 8px;
+}
+.quiz-score .score-msg { color: var(--muted); font-size: 0.85rem; }
+
+/* ── Coming soon phases ───────────────────────────────────────── */
+.coming-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding: 40px 48px;
+  max-width: 860px;
+}
+.coming-card {
+  border: 1px dashed var(--border2);
+  border-radius: 14px;
+  padding: 24px;
+  background: var(--surface);
+  opacity: 0.6;
+}
+.coming-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.05rem; margin-bottom: 6px; color: var(--text); }
+.coming-card p  { font-size: 0.8rem; color: var(--muted); line-height: 1.6; }
+.coming-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.62rem;
+  padding: 3px 9px;
+  border-radius: 20px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--faint);
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+/* ── Page sections (for SPA routing) ─────────────────────────── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  #sidebar { display: none; }
+  #main    { margin-left: 0; }
+  .atom-grid, .fg-grid, .coming-grid { grid-template-columns: 1fr; }
+  .content, .page-header { padding: 24px; }
+  .step-content { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ──────────────────────────────────────────────────── -->
+<nav id="sidebar">
+  <div class="sidebar-brand">
+    <div class="eyebrow">Biochemistry · Self-Directed</div>
+    <h1>The Connective Tissue–Brain Axis</h1>
+    <div class="tagline">From atoms to neuroinflammation</div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Course phases</div>
+
+    <div class="nav-item active" onclick="showPage('p1')">
+      <div class="phase-dot dot-active">1</div>
+      <div>
+        <div style="font-weight:500; color: var(--teal);">Atoms to cells</div>
+        <div style="font-size:0.72rem; color:var(--muted);">Construction yard</div>
+      </div>
+    </div>
+    <div class="lesson-list" id="p1-lessons">
+      <div class="lesson-link active" onclick="scrollTo('l1-1')">1.1 — The four main atoms</div>
+      <div class="lesson-link" onclick="scrollTo('l1-2')">1.2 — Bonds &amp; molecules</div>
+      <div class="lesson-link" onclick="scrollTo('l1-3')">1.3 — Functional groups</div>
+      <div class="lesson-link" onclick="scrollTo('l1-4')">1.4 — Phase 1 quiz</div>
+    </div>
+
+    <div class="nav-item locked">
+      <div class="phase-dot dot-locked">2</div>
+      <div>
+        <div>Fascia &amp; connective tissue</div>
+        <div style="font-size:0.72rem;">Unlock after Phase 1</div>
+      </div>
+    </div>
+    <div class="nav-item locked">
+      <div class="phase-dot dot-locked">3</div>
+      <div>
+        <div>Immunology</div>
+        <div style="font-size:0.72rem;">Unlock after Phase 2</div>
+      </div>
+    </div>
+    <div class="nav-item locked">
+      <div class="phase-dot dot-locked">4</div>
+      <div>
+        <div>Blood–brain barrier</div>
+        <div style="font-size:0.72rem;">Unlock after Phase 3</div>
+      </div>
+    </div>
+    <div class="nav-item locked">
+      <div class="phase-dot dot-locked">5</div>
+      <div>
+        <div>Neuroscience</div>
+        <div style="font-size:0.72rem;">Unlock after Phase 4</div>
+      </div>
+    </div>
+    <div class="nav-item locked">
+      <div class="phase-dot dot-locked">6</div>
+      <div>
+        <div>Circadian &amp; microbiome</div>
+        <div style="font-size:0.72rem;">Unlock after Phase 5</div>
+      </div>
+    </div>
+    <div class="nav-item locked">
+      <div class="phase-dot dot-locked">7</div>
+      <div>
+        <div>Integration</div>
+        <div style="font-size:0.72rem;">Unlock after Phase 6</div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ── MAIN ──────────────────────────────────────────────────────── -->
+<main id="main">
+
+  <!-- PHASE 1 PAGE -->
+  <div class="page active" id="p1">
+
+    <div class="page-header">
+      <div class="eyebrow">Phase 1 · Construction Yard</div>
+      <h2>Atoms, Bonds &amp; Molecules</h2>
+      <p class="desc">Before there's a city, there are materials. Before there's a protein, there's an atom. We start at the very bottom — not because it's easy, but because every single concept in Phase 7 traces back to here.</p>
+      <div class="header-pills">
+        <span class="pill pill-teal">4 lessons</span>
+        <span class="pill pill-rust">1 quiz</span>
+        <span class="pill pill-gold">City analogies throughout</span>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <!-- ── LESSON 1.1 ──────────────────────────────────────────── -->
+      <div class="lesson" id="l1-1">
+        <div class="lesson-header">
+          <span class="lesson-num">Lesson 1.1</span>
+          <h3>The four main atoms</h3>
+        </div>
+        <p class="lesson-sub">Meet the only building materials your body needs for everything</p>
+
+        <p class="prose">There are 118 kinds of atoms in the universe. Your body builds <strong>every molecule it has</strong> — every hormone, every protein, every neurotransmitter, every structural fiber — using mostly just four of them. That's the first astonishing fact of biochemistry.</p>
+
+        <div class="city-callout">
+          <div class="city-label">City analogy</div>
+          A city needs thousands of different things to function — roads, buildings, wiring, pipes, people. But at the level of raw materials, it all comes down to a handful: steel, concrete, copper, glass. Biology is the same. Four atoms, infinite structures.
+        </div>
+
+        <p class="prose">The key concept: an atom is the smallest unit of matter that still behaves like a specific element. Each atom has a nucleus (protons + neutrons) surrounded by electrons. The <strong>outermost electrons</strong> — called valence electrons — are what form bonds with other atoms. The number of bonds an atom can form determines what structures it can build.</p>
+
+        <p class="prose">Click each atom below to understand its role in your city:</p>
+
+        <div class="atom-grid">
+          <div class="atom-card c-atom" onclick="showAtom('C')" id="ac-C">
+            <div class="atom-circle">C</div>
+            <div class="atom-symbol">Carbon</div>
+            <div class="atom-name">atomic no. 6</div>
+            <div class="valence">
+              <div class="bond-dot"></div><div class="bond-dot"></div>
+              <div class="bond-dot"></div><div class="bond-dot"></div>
+            </div>
+            <div class="atom-city">The steel framework — 4 bonds, builds chains &amp; rings</div>
+          </div>
+          <div class="atom-card h-atom" onclick="showAtom('H')" id="ac-H">
+            <div class="atom-circle">H</div>
+            <div class="atom-symbol">Hydrogen</div>
+            <div class="atom-name">atomic no. 1</div>
+            <div class="valence"><div class="bond-dot"></div></div>
+            <div class="atom-city">The filler brick — most abundant, plugs gaps everywhere</div>
+          </div>
+          <div class="atom-card o-atom" onclick="showAtom('O')" id="ac-O">
+            <div class="atom-circle">O</div>
+            <div class="atom-symbol">Oxygen</div>
+            <div class="atom-name">atomic no. 8</div>
+            <div class="valence">
+              <div class="bond-dot"></div><div class="bond-dot"></div>
+            </div>
+            <div class="atom-city">The reactive zone — creates polarity, attracts water</div>
+          </div>
+          <div class="atom-card n-atom" onclick="showAtom('N')" id="ac-N">
+            <div class="atom-circle">N</div>
+            <div class="atom-symbol">Nitrogen</div>
+            <div class="atom-name">atomic no. 7</div>
+            <div class="valence">
+              <div class="bond-dot"></div><div class="bond-dot"></div><div class="bond-dot"></div>
+            </div>
+            <div class="atom-city">The signaling hub — in every protein, neurotransmitter, DNA</div>
+          </div>
+        </div>
+
+        <!-- Atom detail panels -->
+        <div class="atom-detail" id="ad-C">
+          <h4 style="color: #27500a;">Carbon — the city's steel framework</h4>
+          <p>Carbon is the backbone of all organic molecules — meaning almost everything in biology. The reason carbon is so special is that it can form <strong>four bonds simultaneously, in any direction</strong>. This means it can build straight chains, branched chains, and rings. No other common atom can do this with such flexibility.</p>
+          <p>Think of carbon as the structural steel in a skyscraper. You can build up, out, branch left, branch right. Two carbon atoms can even share a <strong>double bond</strong> — like bolting two steel beams together — which makes the structure stiffer and more rigid. This matters enormously: collagen's triple helix, the ring structure of glucose, the benzene rings in amino acids — all carbon frameworks.</p>
+          <div class="found-tags">
+            <span class="found-tag">collagen</span><span class="found-tag">glucose</span><span class="found-tag">DNA</span>
+            <span class="found-tag">every amino acid</span><span class="found-tag">fatty acids</span><span class="found-tag">hyaluronic acid</span>
+          </div>
+        </div>
+
+        <div class="atom-detail" id="ad-H">
+          <h4 style="color: #0c447c;">Hydrogen — the filler brick</h4>
+          <p>Hydrogen is the simplest atom: one proton, one electron, one bond available. It is by far the most abundant atom in the universe and in your body. In biochemistry it plays two key roles: it plugs every available carbon bond that isn't used for something else (keeping molecules stable), and when it bonds with oxygen or nitrogen, it creates <strong>polarity</strong> — an uneven charge distribution that makes water possible and proteins able to fold.</p>
+          <p>Crucially, <strong>hydrogen bonds</strong> — the weak attractions between hydrogen and nearby oxygen or nitrogen atoms — are what hold your DNA double helix together and determine how proteins fold into their final 3D shape. Weak individually, but there are millions of them in every protein.</p>
+          <div class="found-tags">
+            <span class="found-tag">water (H₂O)</span><span class="found-tag">all organic molecules</span>
+            <span class="found-tag">protein folding</span><span class="found-tag">DNA double helix</span><span class="found-tag">ATP</span>
+          </div>
+        </div>
+
+        <div class="atom-detail" id="ad-O">
+          <h4 style="color: #712b13;">Oxygen — the reactive zone</h4>
+          <p>Oxygen has two available bonds and a very strong pull on electrons — it is highly <strong>electronegative</strong>. When oxygen bonds to hydrogen (forming water, –OH groups, or carboxylic acids), it pulls shared electrons toward itself, leaving the hydrogen end slightly positive. This creates <strong>polarity</strong>: one end of the molecule carries a slight negative charge (δ–), the other a slight positive charge (δ+).</p>
+          <p>Why does this matter? Polarity is what makes molecules dissolve in water or repel it. Polar molecules mix with blood; nonpolar molecules (like fats) don't. This is why your cell membrane works — it has a polar outside (loves water) and a nonpolar inside (repels water). Every drug you'll ever prescribe behaves based on this principle.</p>
+          <div class="found-tags">
+            <span class="found-tag">water</span><span class="found-tag">carboxylic acids (proteins)</span><span class="found-tag">sugars</span>
+            <span class="found-tag">ATP energy bonds</span><span class="found-tag">hyaluronic acid</span><span class="found-tag">cell membranes</span>
+          </div>
+        </div>
+
+        <div class="atom-detail" id="ad-N">
+          <h4 style="color: #3c3489;">Nitrogen — the signaling hub</h4>
+          <p>Nitrogen has three available bonds and, like oxygen, pulls electrons toward itself — but less aggressively. It appears in two of the most critical places in biochemistry: <strong>amino groups (–NH₂)</strong> that appear in every amino acid (and therefore every protein), and <strong>ring structures</strong> in DNA bases and neurotransmitters like dopamine.</p>
+          <p>In the city analogy, nitrogen is the communications infrastructure — the fiber optic cables, the traffic signals. The amine groups in substance P, dopamine, histamine, and every neurotransmitter are nitrogen. When we reach Phase 3, you'll see how central nitrogen is to every immune signal. The N in NF-κB stands for nuclear, but the pathway itself is full of nitrogen-containing molecules.</p>
+          <div class="found-tags">
+            <span class="found-tag">all amino acids</span><span class="found-tag">DNA/RNA bases</span><span class="found-tag">dopamine</span>
+            <span class="found-tag">histamine</span><span class="found-tag">substance P</span><span class="found-tag">NF-κB pathway</span>
+          </div>
+        </div>
+
+        <div class="insight">
+          <div class="insight-label">Key insight — shape is function</div>
+          A key fits a lock not because of what it's made of, but because of its <strong>shape</strong>. A molecule in your body works — or doesn't work — for exactly the same reason. When substance P binds to the NK-1 receptor, it's because substance P's shape fits precisely into the NK-1 receptor's pocket. Every receptor, every enzyme, every signaling protein works this way. And the shape of every one of them is determined entirely by how C, H, O, and N are arranged and bonded together.
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- ── LESSON 1.2 ──────────────────────────────────────────── -->
+      <div class="lesson" id="l1-2">
+        <div class="lesson-header">
+          <span class="lesson-num">Lesson 1.2</span>
+          <h3>Bonds &amp; molecules — from atoms to structures</h3>
+        </div>
+        <p class="lesson-sub">How atoms hold hands, and why the shape of the result changes everything</p>
+
+        <p class="prose">A bond is simply <strong>two atoms sharing a pair of electrons</strong>. That's it. When carbon reaches out with all four hands and grabs four other atoms, it forms a stable molecule. The shape of that molecule — determined entirely by how many bonds each atom forms and in which direction — determines everything it does.</p>
+
+        <p class="prose">Step through the five stages below — each one builds on the last, and Step 5 (functional groups preview) will echo through every phase of this course:</p>
+
+        <!-- Stepper widget -->
+        <div class="stepper-wrap">
+          <div class="stepper-header">
+            <div class="stepper-dots" id="step-dots"></div>
+            <div class="step-label" id="step-label"></div>
+          </div>
+          <div class="stepper-body">
+            <div class="step-content">
+              <div class="step-diagram">
+                <svg id="step-svg" width="190" height="155" viewBox="0 0 190 155" role="img"><title>Molecule diagram</title></svg>
+              </div>
+              <div class="step-prose">
+                <h4 id="step-title"></h4>
+                <div id="step-text"></div>
+                <div class="step-city" id="step-city" style="display:none">
+                  <div class="cl">City analogy</div>
+                  <span id="step-city-text"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="stepper-footer">
+            <div class="step-counter" id="step-counter"></div>
+            <div class="step-btns">
+              <button class="btn" onclick="stepPrev()">← Back</button>
+              <button class="btn primary" onclick="stepNext()" id="step-next">Next →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- ── LESSON 1.3 ──────────────────────────────────────────── -->
+      <div class="lesson" id="l1-3">
+        <div class="lesson-header">
+          <span class="lesson-num">Lesson 1.3</span>
+          <h3>Functional groups — giving molecules their jobs</h3>
+        </div>
+        <p class="lesson-sub">Swap one cluster of atoms, change everything the molecule does</p>
+
+        <p class="prose">A <strong>functional group</strong> is a small cluster of atoms attached to a carbon chain that gives the molecule a specific chemical behavior. Think of them as job titles. The carbon backbone is the worker's body; the functional group is their uniform and department.</p>
+
+        <div class="city-callout">
+          <div class="city-label">City analogy</div>
+          Same worker, different hat, completely different department. A person with a hard hat works construction; the same person with a stethoscope works the hospital. Same underlying human, entirely different function. That's what functional groups do to molecules.
+        </div>
+
+        <p class="prose">These four appear constantly throughout the course — click each one to understand why it matters for the framework:</p>
+
+        <div class="fg-grid">
+          <div class="fg-card fg-oh" onclick="toggleFG(this)">
+            <div class="fg-formula">—OH</div>
+            <div class="fg-name">Hydroxyl group</div>
+            <div class="fg-short">Makes the molecule water-soluble and reactive. The "wet" group.</div>
+            <div class="fg-detail">
+              <p>The –OH group creates a polar region on whatever molecule it's attached to, making it attract water molecules. This is why sugars dissolve in blood, why hyaluronic acid attracts and holds water (giving fascia its lubrication), and why many drug molecules are designed with –OH groups to improve solubility.</p>
+              <p>In Phase 2, you'll see how the –OH groups on hyaluronic acid are exactly what make it such an effective lubricant in fascial tissue. More –OH = more water retention = more lubrication.</p>
+              <div class="found-tags">
+                <span class="found-tag">sugars (glucose)</span><span class="found-tag">hyaluronic acid</span>
+                <span class="found-tag">steroids</span><span class="found-tag">amino acids (serine)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="fg-card fg-cooh" onclick="toggleFG(this)">
+            <div class="fg-formula">—COOH</div>
+            <div class="fg-name">Carboxyl group</div>
+            <div class="fg-short">Makes the molecule acidic. The "acid" end of every amino acid.</div>
+            <div class="fg-detail">
+              <p>The –COOH group can donate a hydrogen ion (H⁺) to solution, making the local environment more acidic. This is what makes an acid an acid. Every single amino acid has a carboxyl group on one end and an amine group (–NH₂) on the other — the two functional groups that define the amino acid family.</p>
+              <p>When two amino acids join, the carboxyl group of one reacts with the amine group of the next — losing water (H₂O) in the process. This reaction, called a <strong>peptide bond</strong>, is what links amino acids into proteins. Understanding this is the foundation of Phase 2.</p>
+              <div class="found-tags">
+                <span class="found-tag">all amino acids</span><span class="found-tag">fatty acids</span>
+                <span class="found-tag">aspirin (acetylsalicylic acid)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="fg-card fg-nh2" onclick="toggleFG(this)">
+            <div class="fg-formula">—NH₂</div>
+            <div class="fg-name">Amine group</div>
+            <div class="fg-short">Makes the molecule basic. In every protein and neurotransmitter.</div>
+            <div class="fg-detail">
+              <p>The –NH₂ group can accept a hydrogen ion (H⁺), making the local environment more basic (alkaline). Together with –COOH, it defines the amino acid structure. But amines appear far beyond amino acids: <strong>dopamine, histamine, substance P, serotonin, epinephrine</strong> — every catecholamine, every biogenic amine neurotransmitter — contains this group.</p>
+              <p>This is why the amine group is your signaling hub. In Phase 3 you'll see how mast cells store and release histamine (an amine) — the –NH₂ group is what gives histamine its chemical personality, including its ability to bind the H1/H3 receptors you read about in the document.</p>
+              <div class="found-tags">
+                <span class="found-tag">all amino acids</span><span class="found-tag">dopamine</span>
+                <span class="found-tag">histamine</span><span class="found-tag">substance P</span><span class="found-tag">serotonin</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="fg-card fg-co" onclick="toggleFG(this)">
+            <div class="fg-formula">C=O</div>
+            <div class="fg-name">Carbonyl group</div>
+            <div class="fg-short">Reactive and polar. Appears in sugars and links proteins together.</div>
+            <div class="fg-detail">
+              <p>The C=O (carbonyl) group is highly reactive because the double bond with oxygen creates a region of strong polarity. When it appears at the end of a carbon chain it's an aldehyde; in the middle it's a ketone. Glucose has a carbonyl group — it's what makes glucose such a reactive molecule and why it can bind to proteins in diabetic glycation.</p>
+              <p>In peptide bonds (the links between amino acids in proteins), the C=O from one amino acid's carboxyl group remains after the –OH leaves. Understanding the carbonyl will help you understand protein structure in Phase 2 and why collagen cross-linking works the way it does.</p>
+              <div class="found-tags">
+                <span class="found-tag">sugars (aldehyde/ketone)</span><span class="found-tag">peptide bonds</span>
+                <span class="found-tag">steroids</span><span class="found-tag">collagen cross-linking</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="insight">
+          <div class="insight-label">Connecting to the framework</div>
+          When you read "IL-6" or "TNF-α" in the fascia document, those are proteins — long chains of amino acids (each with their amine and carboxyl groups), folded into a 3D shape that fits a specific receptor. The functional groups on each amino acid determine where the chain folds. The fold determines the function. The function determines whether your fascia inflames, whether your BBB breaks down, whether your RLS symptoms worsen at 11 PM.
+        </div>
+      </div>
+
+      <hr class="section-divider">
+
+      <!-- ── LESSON 1.4 QUIZ ────────────────────────────────────── -->
+      <div class="lesson" id="l1-4">
+        <div class="lesson-header">
+          <span class="lesson-num">Lesson 1.4</span>
+          <h3>Phase 1 checkpoint quiz</h3>
+        </div>
+        <p class="lesson-sub">Five questions — test your understanding before moving to Phase 2</p>
+
+        <div class="quiz-wrap">
+          <div class="quiz-header">Phase 1 · Atoms, bonds &amp; molecules</div>
+          <div class="quiz-progress" id="quiz-progress"></div>
+          <div id="quiz-body"></div>
+          <div class="quiz-score" id="quiz-score">
+            <span class="score-num" id="score-num"></span>
+            <span class="score-msg" id="score-msg"></span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end .content -->
+  </div><!-- end #p1 -->
+
+</main>
+
+<script>
+/* ─── Atom detail ───────────────────────────────────────────────── */
+function showAtom(id) {
+  document.querySelectorAll('.atom-card').forEach(c => c.classList.remove('selected'));
+  document.querySelectorAll('.atom-detail').forEach(d => { d.classList.remove('visible'); });
+  document.getElementById('ac-' + id).classList.add('selected');
+  const d = document.getElementById('ad-' + id);
+  d.classList.add('visible');
+  d.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* ─── Functional groups ────────────────────────────────────────── */
+function toggleFG(el) {
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.fg-card').forEach(c => c.classList.remove('open'));
+  if (!wasOpen) el.classList.add('open');
+}
+
+/* ─── Stepper ────────────────────────────────────────────────────── */
+const steps = [
+  {
+    label: 'Step 1 of 5 — <strong>Single bond: H₂</strong>',
+    title: 'The single bond — hydrogen gas',
+    text: `<p><strong>Two hydrogen atoms, each with one available hand, reach out and grab each other.</strong> They share their two electrons and form a single bond — written H–H.</p><p>This is H₂: hydrogen gas. Simple, but the concept is everything. Two atoms share electrons → stable connection. The more electrons shared, the stronger the bond.</p>`,
+    city: 'Two workers shaking one hand each — each contributes one hand to the agreement.',
+    svg: `<circle cx="52" cy="77" r="24" fill="#b5d4f4" stroke="#185fa5" stroke-width="1"/>
+<text x="52" y="83" text-anchor="middle" font-size="18" font-weight="500" fill="#0c447c" font-family="DM Sans,sans-serif">H</text>
+<line x1="76" y1="77" x2="114" y2="77" stroke="#6b7280" stroke-width="2.5" stroke-linecap="round"/>
+<circle cx="138" cy="77" r="24" fill="#b5d4f4" stroke="#185fa5" stroke-width="1"/>
+<text x="138" y="83" text-anchor="middle" font-size="18" font-weight="500" fill="#0c447c" font-family="DM Sans,sans-serif">H</text>
+<text x="95" y="122" text-anchor="middle" font-size="11" fill="#9ca3af" font-family="DM Mono,monospace">H — H (single bond)</text>`
+  },
+  {
+    label: 'Step 2 of 5 — <strong>Double bond: O₂</strong>',
+    title: 'The double bond — oxygen gas',
+    text: `<p><strong>Oxygen has two available hands.</strong> When two oxygen atoms meet, they share four electrons — a double bond. This is written O=O.</p><p>Double bonds are <strong>stronger and shorter</strong> than single bonds. They also make the molecule rigid — it can't rotate around a double bond. You'll see this matter with fatty acids: all single bonds → flexible → solid fat. Double bonds → kinked → liquid oil.</p>`,
+    city: 'Two workers grabbing each other with both hands — locked in place, can\'t rotate.',
+    svg: `<circle cx="52" cy="77" r="26" fill="#f5c4b3" stroke="#993c1d" stroke-width="1"/>
+<text x="52" y="83" text-anchor="middle" font-size="18" font-weight="500" fill="#712b13" font-family="DM Sans,sans-serif">O</text>
+<line x1="79" y1="70" x2="111" y2="70" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+<line x1="79" y1="84" x2="111" y2="84" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+<circle cx="138" cy="77" r="26" fill="#f5c4b3" stroke="#993c1d" stroke-width="1"/>
+<text x="138" y="83" text-anchor="middle" font-size="18" font-weight="500" fill="#712b13" font-family="DM Sans,sans-serif">O</text>
+<text x="95" y="126" text-anchor="middle" font-size="11" fill="#9ca3af" font-family="DM Mono,monospace">O = O (double bond)</text>`
+  },
+  {
+    label: 'Step 3 of 5 — <strong>Water: H₂O and polarity</strong>',
+    title: 'Water — why the bent shape changes everything',
+    text: `<p><strong>Oxygen grabs two hydrogen atoms.</strong> But the shape is not a straight line — it's bent (~104.5°) because oxygen's remaining electrons push the hydrogens apart.</p><p>This bent shape creates <strong>polarity</strong>: oxygen pulls electrons toward itself (δ–), hydrogens become slightly positive (δ+). Water molecules stick to each other. Polar molecules dissolve in water. Nonpolar molecules don't. This is why every drug, cytokine, and hormone behaves the way it does in blood.</p>`,
+    city: 'A bent intersection — the angle isn\'t decorative. It creates an asymmetry that powers all of biochemistry.',
+    svg: `<circle cx="95" cy="50" r="28" fill="#f5c4b3" stroke="#993c1d" stroke-width="1"/>
+<text x="95" y="57" text-anchor="middle" font-size="17" font-weight="500" fill="#712b13" font-family="DM Sans,sans-serif">O</text>
+<line x1="72" y1="66" x2="46" y2="96" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+<line x1="118" y1="66" x2="144" y2="96" stroke="#6b7280" stroke-width="2" stroke-linecap="round"/>
+<circle cx="38" cy="105" r="19" fill="#b5d4f4" stroke="#185fa5" stroke-width="1"/>
+<text x="38" y="111" text-anchor="middle" font-size="13" font-weight="500" fill="#0c447c" font-family="DM Sans,sans-serif">H</text>
+<circle cx="152" cy="105" r="19" fill="#b5d4f4" stroke="#185fa5" stroke-width="1"/>
+<text x="152" y="111" text-anchor="middle" font-size="13" font-weight="500" fill="#0c447c" font-family="DM Sans,sans-serif">H</text>
+<text x="22" y="106" font-size="10" fill="#993c1d" font-family="DM Sans,sans-serif">δ+</text>
+<text x="158" y="106" font-size="10" fill="#993c1d" font-family="DM Sans,sans-serif">δ+</text>
+<text x="95" y="36" text-anchor="middle" font-size="10" fill="#185fa5" font-family="DM Sans,sans-serif">δ–</text>
+<text x="95" y="148" text-anchor="middle" font-size="11" fill="#9ca3af" font-family="DM Mono,monospace">bent → polarity</text>`
+  },
+  {
+    label: 'Step 4 of 5 — <strong>Carbon chains: the backbone</strong>',
+    title: 'Carbon chains — infinite structural possibilities',
+    text: `<p><strong>Carbon's four bonds mean it can connect to four things simultaneously.</strong> When carbons link to each other, each still has hands free for hydrogens or other atoms.</p><p>A chain of 6 carbons with hydrogens is simple hexane. Swap one hydrogen for –OH → a sugar. Swap one for –NH₂ → building toward an amino acid. <strong>Same chain, different functional group, completely different molecule.</strong></p><p>Carbon chains aren't straight — they zigzag in 3D. The exact 3D shape determines whether the molecule fits a receptor. Same atoms, different arrangement = different biological effect (this is called an isomer).</p>`,
+    city: 'A city block of four-way intersections — every junction connects in 4 directions, enabling any layout you want.',
+    svg: `<circle cx="22" cy="77" r="16" fill="#c0dd97" stroke="#3b6d11" stroke-width="1"/>
+<text x="22" y="82" text-anchor="middle" font-size="13" font-weight="500" fill="#27500a" font-family="DM Sans,sans-serif">C</text>
+<line x1="38" y1="77" x2="54" y2="77" stroke="#6b7280" stroke-width="1.5"/>
+<circle cx="70" cy="77" r="16" fill="#c0dd97" stroke="#3b6d11" stroke-width="1"/>
+<text x="70" y="82" text-anchor="middle" font-size="13" font-weight="500" fill="#27500a" font-family="DM Sans,sans-serif">C</text>
+<line x1="86" y1="77" x2="102" y2="77" stroke="#6b7280" stroke-width="1.5"/>
+<circle cx="118" cy="77" r="16" fill="#c0dd97" stroke="#3b6d11" stroke-width="1"/>
+<text x="118" y="82" text-anchor="middle" font-size="13" font-weight="500" fill="#27500a" font-family="DM Sans,sans-serif">C</text>
+<line x1="134" y1="77" x2="150" y2="77" stroke="#6b7280" stroke-width="1.5"/>
+<circle cx="166" cy="77" r="16" fill="#c0dd97" stroke="#3b6d11" stroke-width="1"/>
+<text x="166" y="82" text-anchor="middle" font-size="13" font-weight="500" fill="#27500a" font-family="DM Sans,sans-serif">C</text>
+<line x1="22" y1="61" x2="22" y2="47" stroke="#b5d4f4" stroke-width="1.5"/>
+<circle cx="22" cy="38" r="9" fill="#e6f1fb" stroke="#185fa5" stroke-width="0.5"/>
+<text x="22" y="42" text-anchor="middle" font-size="10" fill="#0c447c" font-family="DM Sans,sans-serif">H</text>
+<line x1="22" y1="93" x2="22" y2="107" stroke="#b5d4f4" stroke-width="1.5"/>
+<circle cx="22" cy="116" r="9" fill="#e6f1fb" stroke="#185fa5" stroke-width="0.5"/>
+<text x="22" y="120" text-anchor="middle" font-size="10" fill="#0c447c" font-family="DM Sans,sans-serif">H</text>
+<line x1="118" y1="61" x2="118" y2="47" stroke="#b5d4f4" stroke-width="1.5"/>
+<circle cx="118" cy="38" r="9" fill="#e6f1fb" stroke="#185fa5" stroke-width="0.5"/>
+<text x="118" y="42" text-anchor="middle" font-size="10" fill="#0c447c" font-family="DM Sans,sans-serif">H</text>
+<line x1="118" y1="93" x2="118" y2="107" stroke="#b5d4f4" stroke-width="1.5"/>
+<circle cx="118" cy="116" r="9" fill="#e6f1fb" stroke="#185fa5" stroke-width="0.5"/>
+<text x="118" y="120" text-anchor="middle" font-size="10" fill="#0c447c" font-family="DM Sans,sans-serif">H</text>
+<text x="94" y="148" text-anchor="middle" font-size="11" fill="#3b6d11" font-family="DM Mono,monospace">C–C–C–C backbone</text>`
+  },
+  {
+    label: 'Step 5 of 5 — <strong>Functional groups: job titles</strong>',
+    title: 'Functional groups — where atoms become workers',
+    text: `<p><strong>A functional group is a small cluster of atoms attached to a carbon chain that gives the molecule a specific chemical behavior.</strong></p><p>The four you need to know right now: <strong>–OH</strong> (hydroxyl, water-attracter), <strong>–COOH</strong> (carboxyl, acid end of amino acids), <strong>–NH₂</strong> (amine, in dopamine/histamine/substance P), and <strong>C=O</strong> (carbonyl, reactive, in sugars and peptide bonds).</p><p>Every cytokine, every neurotransmitter, every structural protein is just a specific arrangement of carbon chains decorated with these functional groups. That's all biochemistry is.</p>`,
+    city: 'Functional groups are job uniforms. Same worker, different hat, completely different department.',
+    svg: `<rect x="8" y="20" width="82" height="50" rx="7" fill="#eaf3de" stroke="#97c459" stroke-width="0.5"/>
+<text x="49" y="43" text-anchor="middle" font-size="14" font-weight="500" fill="#27500a" font-family="DM Mono,monospace">–OH</text>
+<text x="49" y="58" text-anchor="middle" font-size="10" fill="#3b6d11" font-family="DM Sans,sans-serif">hydroxyl</text>
+<rect x="100" y="20" width="82" height="50" rx="7" fill="#faece7" stroke="#f0997b" stroke-width="0.5"/>
+<text x="141" y="43" text-anchor="middle" font-size="14" font-weight="500" fill="#712b13" font-family="DM Mono,monospace">–COOH</text>
+<text x="141" y="58" text-anchor="middle" font-size="10" fill="#993c1d" font-family="DM Sans,sans-serif">carboxyl</text>
+<rect x="8" y="82" width="82" height="50" rx="7" fill="#eeedfe" stroke="#afa9ec" stroke-width="0.5"/>
+<text x="49" y="105" text-anchor="middle" font-size="14" font-weight="500" fill="#3c3489" font-family="DM Mono,monospace">–NH₂</text>
+<text x="49" y="120" text-anchor="middle" font-size="10" fill="#534ab7" font-family="DM Sans,sans-serif">amine</text>
+<rect x="100" y="82" width="82" height="50" rx="7" fill="#e6f1fb" stroke="#85b7eb" stroke-width="0.5"/>
+<text x="141" y="105" text-anchor="middle" font-size="14" font-weight="500" fill="#0c447c" font-family="DM Mono,monospace">C=O</text>
+<text x="141" y="120" text-anchor="middle" font-size="10" fill="#185fa5" font-family="DM Sans,sans-serif">carbonyl</text>
+<text x="94" y="150" text-anchor="middle" font-size="11" fill="#6b7280" font-family="DM Mono,monospace">4 functional groups = 4 job types</text>`
+  }
+];
+
+let stepIdx = 0;
+
+function renderStep() {
+  const s = steps[stepIdx];
+  document.getElementById('step-label').innerHTML = s.label;
+  document.getElementById('step-title').textContent = s.title;
+  document.getElementById('step-text').innerHTML = s.text;
+  const cityEl = document.getElementById('step-city');
+  if (s.city) {
+    cityEl.style.display = 'block';
+    document.getElementById('step-city-text').textContent = s.city;
+  } else { cityEl.style.display = 'none'; }
+  document.getElementById('step-svg').innerHTML = `<title>${s.title}</title>` + s.svg;
+  document.getElementById('step-counter').textContent = `Step ${stepIdx+1} of ${steps.length}`;
+  document.getElementById('step-next').textContent = stepIdx === steps.length - 1 ? 'Done ✓' : 'Next →';
+  const dotsEl = document.getElementById('step-dots');
+  dotsEl.innerHTML = steps.map((_, i) =>
+    `<div class="sdot ${i === stepIdx ? 's-act' : i < stepIdx ? 's-done' : ''}" onclick="goStep(${i})">${i+1}</div>`
+  ).join('');
+}
+function stepNext() {
+  if (stepIdx < steps.length - 1) { stepIdx++; renderStep(); }
+  else { document.getElementById('l1-3').scrollIntoView({ behavior: 'smooth' }); }
+}
+function stepPrev() { if (stepIdx > 0) { stepIdx--; renderStep(); } }
+function goStep(i) { stepIdx = i; renderStep(); }
+renderStep();
+
+/* ─── Quiz ───────────────────────────────────────────────────────── */
+const questions = [
+  {
+    q: 'Carbon can form 4 bonds simultaneously. Why does this make it uniquely suited to building biological structures?',
+    opts: [
+      'It is the smallest atom and takes up less space',
+      'It can connect to four different atoms at once, enabling chains, branches, and rings of infinite variety',
+      'It is more abundant than any other element in the universe',
+      'It forms ionic bonds that are especially strong'
+    ],
+    correct: 1,
+    feedback: 'Correct! Carbon\'s four bonds mean it can connect in any direction — up, down, left, right — creating the backbone of every amino acid, sugar, fatty acid, and protein in your body. No other common atom can do this.'
+  },
+  {
+    q: 'Water\'s bent shape (rather than straight) creates polarity. Why does polarity matter for drug pharmacology?',
+    opts: [
+      'Polar molecules are always toxic, so drugs must be nonpolar',
+      'Polarity determines whether a molecule dissolves in water (blood) or in fat (cell membranes) — which determines how a drug distributes in the body',
+      'Polar molecules travel faster through the bloodstream',
+      'It doesn\'t matter — polarity only affects physical properties, not biological ones'
+    ],
+    correct: 1,
+    feedback: 'Exactly right! Polar drugs dissolve in blood and are excreted by the kidneys. Nonpolar drugs cross cell membranes easily but need liver processing. Almost every pharmacokinetics concept — distribution, metabolism, excretion — traces back to polarity.'
+  },
+  {
+    q: 'Histamine, dopamine, and substance P all contain which functional group?',
+    opts: ['–OH (hydroxyl)', '–COOH (carboxyl)', '–NH₂ (amine)', 'C=O (carbonyl)'],
+    correct: 2,
+    feedback: 'Yes! The amine group (–NH₂) is what makes these molecules "biogenic amines" and defines their chemical personality. When mast cells release histamine or neurons release dopamine, the amine group is what allows those molecules to bind their respective receptors. You\'ll revisit this constantly in Phases 3 and 5.'
+  },
+  {
+    q: 'Two molecules have the exact same atoms (same numbers of C, H, O, N) but completely different biological effects. What explains this?',
+    opts: [
+      'One must have more atoms than the other',
+      'They must have different functional groups',
+      'The atoms are arranged differently in 3D space — same ingredients, different shape, different receptor fit',
+      'This is not possible; identical atoms always produce identical effects'
+    ],
+    correct: 2,
+    feedback: 'Perfect — these are called isomers. Shape is function. Glucose and fructose have the exact same molecular formula (C₆H₁₂O₆) but completely different shapes, which is why your body processes them differently. The same principle explains why one drug works and a mirror-image version of the same drug doesn\'t — wrong shape, wrong fit.'
+  },
+  {
+    q: 'Hyaluronic acid\'s ability to attract and hold water in fascial tissue is primarily due to which feature of its molecular structure?',
+    opts: [
+      'Its large number of carbon atoms',
+      'Its multiple –OH (hydroxyl) groups, which are polar and attract water molecules',
+      'Its amine groups, which create electrical charge',
+      'Its double bonds, which increase rigidity'
+    ],
+    correct: 1,
+    feedback: 'Correct! Hyaluronic acid is built on a sugar backbone covered in –OH groups. Each hydroxyl group attracts surrounding water molecules, allowing HA to hold many times its weight in water. This is exactly why HA densification — when HA becomes more viscous and loses its water-holding organization — impairs fascial gliding and activates nociceptors. You just understood Phase 2 at the molecular level.'
+  }
+];
+
+let qIdx = 0, score = 0, answered = [];
+
+function renderQuiz() {
+  const prog = document.getElementById('quiz-progress');
+  prog.innerHTML = questions.map((_, i) =>
+    `<div class="qp-dot ${i < answered.length ? 'done' : i === qIdx ? 'current' : ''}"></div>`
+  ).join('');
+
+  if (qIdx >= questions.length) {
+    document.getElementById('quiz-body').style.display = 'none';
+    const sc = document.getElementById('quiz-score');
+    sc.style.display = 'block';
+    document.getElementById('score-num').textContent = score + '/' + questions.length;
+    const msgs = ['Keep reviewing — re-read the lessons above and try again!', 'Good start — review the sections that tripped you up.', 'Solid! A couple to revisit.', 'Great work!', 'Perfect score! Phase 2 awaits.'];
+    document.getElementById('score-msg').textContent = msgs[score] || msgs[4];
+    return;
+  }
+
+  const q = questions[qIdx];
+  document.getElementById('quiz-body').innerHTML = `
+    <div class="quiz-q">${qIdx+1}. ${q.q}</div>
+    <div class="quiz-options">
+      ${q.opts.map((o, i) => `<button class="quiz-opt" onclick="answer(${i})">${o}</button>`).join('')}
+    </div>
+    <div class="quiz-feedback" id="qfb"></div>
+  `;
+}
+
+function answer(i) {
+  const q = questions[qIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach((o, idx) => {
+    o.disabled = true;
+    if (idx === q.correct) o.classList.add('correct');
+    else if (idx === i && i !== q.correct) o.classList.add('wrong');
+    else o.classList.add('dimmed');
+  });
+  const fb = document.getElementById('qfb');
+  const isRight = i === q.correct;
+  if (isRight) score++;
+  answered.push(i);
+  fb.className = 'quiz-feedback show ' + (isRight ? 'ok' : 'no');
+  fb.innerHTML = (isRight ? '✓ ' : '✗ ') + q.feedback + `<br><br><button class="btn" style="margin-top:8px" onclick="nextQ()">${qIdx < questions.length - 1 ? 'Next question →' : 'See results'}</button>`;
+  renderQuiz();
+}
+function nextQ() { qIdx++; renderQuiz(); }
+renderQuiz();
+
+/* ─── Nav / routing ──────────────────────────────────────────────── */
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+}
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+</script>
+
+</body>
+</html>
